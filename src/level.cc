@@ -1,6 +1,7 @@
 #include <string>
 #include <cstdlib>
 #include <fstream>
+#include <time>
 #include "observer.h"
 #include "subject.h"
 #include "level.h"
@@ -34,6 +35,54 @@ Block Level0::getBlock(){
     return b;
   } else if (block_id == 'Z'){
     Block_Z b;
+    return b;
+  } else {
+    Block_O b;
+    return b;
+  }
+}
+
+Block Level1::getBlock(){
+  srand(time(NULL)); // reset seed
+  int n = rand() % 12;
+  if (n == 0){
+    Block_S b;
+    return b;
+  } else if (n == 1){
+    Block_Z b;
+    return b;
+  } else if (n >= 2 && n <= 3){
+    Block_I b;
+    return b;
+  } else if (n >= 4 && n <= 5){
+    Block_J b;
+    return b;
+  } else if (n >= 6 && n <= 7){
+    Block_L b;
+    return b;
+  } else {
+    Block_O b;
+    return b;
+  }
+}
+
+Block Level2::getBlock(){
+  srand(time(NULL)); // reset seed
+  int n = rand() % 6;
+  if (n == 0){
+    Block_S b;
+    return b;
+  } else if (n == 1){
+    Block_Z b;
+    return b;
+  } else if (n == 2){
+    Block_I b;
+    return b;
+  } else if (n == 3){
+    Block_J b;
+    return b;
+  } else if (n == 4){
+    Block_L b;
     return b;
   } else {
     Block_O b;
