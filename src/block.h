@@ -5,7 +5,9 @@
 
 // abstract class
 class Block : public Observer<Info, State>{
+  bool heavy = false;
 public:
+  void toggleHeavy();
   Block(); // initialize the observed cells in constructor
            // I need to refer back to my grid implementation
 };
@@ -28,6 +30,10 @@ class Block_S : public Block{
 };
 
 class Block_Z : public Block{
+  void notify(Subject<Info, State> &whoFrom) override;
+};
+
+class Block_T : public Block{
   void notify(Subject<Info, State> &whoFrom) override;
 };
 

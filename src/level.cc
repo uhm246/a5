@@ -1,7 +1,6 @@
 #include <string>
 #include <cstdlib>
 #include <fstream>
-#include <time>
 #include "observer.h"
 #include "subject.h"
 #include "level.h"
@@ -36,6 +35,9 @@ Block Level0::getBlock(){
   } else if (block_id == 'Z'){
     Block_Z b;
     return b;
+  } else if (block_id == 'T'){
+    Block_T b;
+    return b;
   } else {
     Block_O b;
     return b;
@@ -60,6 +62,9 @@ Block Level1::getBlock(){
   } else if (n >= 6 && n <= 7){
     Block_L b;
     return b;
+  } else if (n >= 8 && n <= 9){
+    Block_T b;
+    return b;
   } else {
     Block_O b;
     return b;
@@ -68,7 +73,7 @@ Block Level1::getBlock(){
 
 Block Level2::getBlock(){
   srand(time(NULL)); // reset seed
-  int n = rand() % 6;
+  int n = rand() % 7;
   if (n == 0){
     Block_S b;
     return b;
@@ -84,8 +89,49 @@ Block Level2::getBlock(){
   } else if (n == 4){
     Block_L b;
     return b;
+  } else if (n == 5){
+    Block_T b;
+    return b;
   } else {
     Block_O b;
     return b;
   }
 }
+
+Block Level3::getBlock(){
+  srand(time(NULL));
+  int n = rand() % 9;
+  if (n >= 0 && n <= 1){
+    Block_S b;
+    b.toggleHeavy();
+    return b;
+  } else if (n >= 2 && n <= 3){
+    Block_Z b;
+    b.toggleHeavy();
+    return b;
+  } else if (n == 4){
+    Block_I b;
+    b.toggleHeavy();
+    return b;
+  } else if (n == 5){
+    Block_J b;
+    b.toggleHeavy();
+    return b;
+  } else if (n == 6){
+    Block_L b;
+    b.toggleHeavy();
+    return b;
+  } else if (n == 7){
+    Block_T b;
+    b.toggleHeavy();
+    return b;
+  } else {
+    Block_O b;
+    b.toggleHeavy();
+    return b;
+  }
+}
+
+// For Level 4, I need to first implement whatever the "Controller" or
+//  whatever Level 4 will be observing first before I can have a clear idea
+//  of its implementation.
