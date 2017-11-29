@@ -7,16 +7,16 @@
 #include "info.h"
 #include "state.h"
 
-// consider redesigning this class- maybe only Level 4 needs
-//  to inherit the Observer class? 
-class Level : public Observer<Info, State>{
+class Level{
 public:
   virtual Block getBlock() = 0;
 };
 
 // Level 0 follows the sequence defined in sequence.txt
 class Level0 : public Level{
-  std::string sequence;
+  std::string sequence_file;
+  int index;
+  std::vector<char> sequence;
 public:
   Level0(std::string s);
   Block getBlock() override;
@@ -42,7 +42,7 @@ public:
 };
 
 // every 5 blocks, a 1x1 block is dropped in to the centre column
-class Level4 : public Level{
+class Level4 : public Level, public Observer<Info, State>{
 public:
   void notify(Subject<Info, State> &whoFrom) override;
   Block getBlock() override; 
