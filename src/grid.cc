@@ -1,5 +1,4 @@
 #include "grid.h"
-#include "textdisplay.h"
 
 using namespace std;
 
