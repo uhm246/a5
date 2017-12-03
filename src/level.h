@@ -42,7 +42,7 @@ public:
 };
 
 // every 5 blocks, a 1x1 block is dropped in to the centre column
-class Level4 : public Level, public Observer<Info, State>{
+class Level4 : public Level, public Observer<State>{
 public:
   void notify(Subject<Info, State> &whoFrom) override;
   Block getBlock() override; 
