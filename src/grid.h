@@ -25,6 +25,7 @@ class Grid {
   void resetScore();
   void increaseScore(int i);
   void setHiScore();
+  void addBlock(Block& b);
   std::vector<int> checkBlocks();
   std::vector<size_t> checkLines();
  public:
@@ -35,17 +36,35 @@ class Grid {
   ~Grid();
   
   void setObserver(Observer<Info, State> *ob);
+
+  // Initialize board, also clears it
   void init();
 
-  void addBlock(Block& b);
-  void verifyMove(Block b, Move m);
-  void verifyRotate(Block b, Rotate m);
-  void drawBlock(Block b);
-  void voidBlock(Block b);
-  void setBlock(Block b);
+  // Verify that a move is valid
+  bool verifyMove(Block b, Move m, size_t r, size_t c);
+
+  // Verify that a rotate is valid
+  bool verifyRotate(Block b, Rotate m, size_t r, size_t c);
+
+  // Draw a block on board (this is a Temp block)
+  void drawBlock(Block b, size_t r, size_t c);
+
+  // Undraw the block
+  void voidBlock(Block b, size_t r, size_t c);
+
+  // Set the block in stone in said location (this is a Solid block)
+  void setBlock(Block b, size_t r, size_t c);
+
+  // Get current level
   Level& getLevel();
+
+  // Set current level
   void setLevel(Level l);
+
+  // Get current score
   int getScore();
+
+  // Get hi score
   int getHiScore();
 
   friend std::ostream &operator<<(std::ostream &out, const Grid &g);
