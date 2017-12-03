@@ -5,7 +5,6 @@
 #include <cstddef>
 #include "cell.h"
 #include "state.h"
-#include "info.h"
 #include "block.h"
 #include "level.h"
 

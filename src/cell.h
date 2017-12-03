@@ -3,16 +3,16 @@
 #include <cstddef>
 #include "state.h"
 #include "subject.h"
-#include "observer.h"
-#include "info.h"
 
-class Cell : public Subject<Info, State>, public Observer<Info, State> {
+class Cell : public Subject<State> {
   const size_t r, c;
-  bool exist;
+  Status status;
+  Type type;
 
  public:
   Cell(size_t r, size_t c);
-  bool isFilled();
-  void unfill();
+  void setStatus(Status s);
+  void setType(Type t);
+
 };
 #endif

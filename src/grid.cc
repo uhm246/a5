@@ -5,14 +5,14 @@ using namespace std;
 
 void Grid::clearLine(size_t r){
   for (size_t i = 0; i < this->width; i++){
-    if (theGrid[r][i].getInfo().status == Status::Solid){
+    if (theGrid[r][i].getState().status == Status::Solid){
       theGrid[r][i].getBlock().removeCell(r, i);
     }
     theGrid[r][i].setStatus(Status::Empty);
   }
   for (size_t i = r+1; i < this->height - 1; i++){ //maybe adjust more
     for (size_t j = 0; j < this->width; j++){
-      Info aboveinfo = theGrid[i+1][j].getInfo();
+      Info aboveinfo = theGrid[i+1][j].getState();
       Status abovestatus = aboveinfo.status;
       Type abovetype = aboveinfo.type;
       if (abovestatus != Status::Temp){
@@ -61,7 +61,7 @@ vector<int> Grid::checkBlocks(){
 
 bool checkLine(vector<Cell>& v, r){
   for (auto a : v){
-    if (a.getInfo().status != Status::Solid){
+    if (a.getState().status != Status::Solid){
       return false;
     }
   }
@@ -107,7 +107,7 @@ bool Grid::verifyMove(Block b, Move m){
     case Move::Down:
       for (auto a : v){
         if (a[1] > 0){
-          Info i = theGrid[a[0]][a[1]-1].getInfo();
+          Info i = theGrid[a[0]][a[1]-1].getState();
           return i.status != Status::Solid;
         } else {
           return false;
