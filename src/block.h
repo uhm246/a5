@@ -13,7 +13,7 @@ class Block : public Observer<Info, State>{
 	bool heavy = false;
 	int level = 0;
 public:
-	Rotation rotation = 0;
+	int rotation = 0;
 	void toggleHeavy();
 	Block* clockwise(Block *b);
 	Block* counterclockwise(Block *b);
