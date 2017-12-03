@@ -73,11 +73,15 @@ void Grid::setBlock(Block b){
   for (auto a : v){
     theGrid[a[0]][a[1]].setStatus(Status::Solid);
   }
+  clearLines();
 }
 
 void Grid::clearLine(size_t r){
-  for (auto a : theGrid[r]){
-    a.setStatus(Status::Empty);
+  for (size_t i = 0; i < this->width; i++){
+    if (theGrid[r][i].getInfo().status == Status::Solid){
+      theGrid[r][i].getBlock().removeCell(r, i);
+    }
+    theGrid[r][i].setStatus(Status::Empty);
   }
   for (size_t i = r+1; i < this->height - 1; i++){ //maybe adjust more
     for (size_t j = 0; j < this->width; j++){
@@ -92,6 +96,13 @@ void Grid::clearLine(size_t r){
   }
 }
 
+void Grid::clearLines(){
+  vector<size_t> v = checkLines();
+  increaseScore((v.size() + getLevel().num()) *
+                (v.size() + getLevel().num()));
+  checkBlocks();
+}
+
 bool checkLine(vector<Cell>& v, r){
   for (auto a : v){
     if (a.getInfo().status != Status::Solid){
@@ -101,10 +112,25 @@ bool checkLine(vector<Cell>& v, r){
   return true;
 }
 
-void Grid::checkLines(){
+vector<size_t> Grid::checkLines(){
+  vector<size_t> v;
   for (size_t r = 0; r < this->height; r++){
     if (checkLine(theGrid[r])){
-      clearLine(r);
+      v.push_back(r);
     }
+  }
+}
+
+vector<int> Grid::checkBlocks(){
+  vector<int> idxs;
+  for (int i = 0; i < blocks.size(); i++){
+    if (blocks[i].getSize() == 0){
+      int l = blocks[i].getLevel();
+      increaseScore((l + 1) * (l + 1));
+      idxs.push_back(i);
+    }
+  }
+  for (int i = idxs.size() - 1; i >= 0; i--){ // check this actually works
+    blocks.erase(blocks.begin() + i);
   }
 }
