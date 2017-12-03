@@ -14,6 +14,7 @@ class Grid {
   std::vector<std::vector<Cell>> theGrid;
   std::vector<Block&> blocks;
   TextDisplay *td = nullptr;
+  GraphicsDisplay *gd = nullptr;
   Observer<Info, State> *ob = nullptr; 
   
   void clearLine(size_t r);
@@ -21,10 +22,12 @@ class Grid {
 
   int score = 0;
   int hiscore = 0;
+  Level lev;
   void resetScore();
-  void increaseScore();
+  void increaseScore(int i);
   void setHiScore();
   std::vector<int> checkBlocks();
+  std::vector<size_t> checkLines();
  public:
 
   const width = 11;
@@ -33,21 +36,18 @@ class Grid {
   ~Grid();
   
   void setObserver(Observer<Info, State> *ob);
-  std::vector<size_t> checkLines();
   void init();
-  void clear();
 
   void addBlock(Block& b);
-  std::vector<size_t> checkLines();
   void verifyMove(Block b, Move m);
   void verifyRotate(Block b, Rotate m);
   void drawBlock(Block b);
   void voidBlock(Block b);
-  Level getLevel();
+  void setBlock(Block b);
+  Level& getLevel();
+  void setLevel(Level l);
   int getScore();
   int getHiScore();
-  Block getBlock(Level);
-  bool isFull() const; 
 
   friend std::ostream &operator<<(std::ostream &out, const Grid &g);
 };

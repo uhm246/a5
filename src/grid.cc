@@ -1,8 +1,85 @@
 #include "grid.h"
 #include "textdisplay.h"
 
+using namespace std;
+
+void Grid::clearLine(size_t r){
+  for (size_t i = 0; i < this->width; i++){
+    if (theGrid[r][i].getInfo().status == Status::Solid){
+      theGrid[r][i].getBlock().removeCell(r, i);
+    }
+    theGrid[r][i].setStatus(Status::Empty);
+  }
+  for (size_t i = r+1; i < this->height - 1; i++){ //maybe adjust more
+    for (size_t j = 0; j < this->width; j++){
+      Info aboveinfo = theGrid[i+1][j].getInfo();
+      Status abovestatus = aboveinfo.status;
+      Type abovetype = aboveinfo.type;
+      if (abovestatus != Status::Temp){
+        theGrid[i][j].setStatus(abovestatus);
+        theGrid[i][j].setType(abovetype);
+      }
+    }
+  }
+}
+
+void Grid::clearLines(){
+  vector<size_t> v = checkLines();
+  increaseScore((v.size() + getLevel().num()) *
+                (v.size() + getLevel().num()));
+  checkBlocks();
+}
+
+void Grid::resetScore(){
+  setHiScore();
+  score = 0;
+}
+
+void Grid::setHiScore(){
+  if (score > hiscore){
+    hiscore = score;
+  }
+}
+
+void Grid::increaseScore(int i){
+  score += i;
+}
+
+vector<int> Grid::checkBlocks(){
+  vector<int> idxs;
+  for (int i = 0; i < blocks.size(); i++){
+    if (blocks[i].getSize() == 0){
+      int l = blocks[i].getLevel();
+      increaseScore((l + 1) * (l + 1));
+      idxs.push_back(i);
+    }
+  }
+  for (int i = idxs.size() - 1; i >= 0; i--){ // check this actually works
+    blocks.erase(blocks.begin() + i);
+  }
+}
+
+bool checkLine(vector<Cell>& v, r){
+  for (auto a : v){
+    if (a.getInfo().status != Status::Solid){
+      return false;
+    }
+  }
+  return true;
+}
+
+vector<size_t> Grid::checkLines(){
+  vector<size_t> v;
+  for (size_t r = 0; r < this->height; r++){
+    if (checkLine(theGrid[r])){
+      v.push_back(r);
+    }
+  }
+}
+
 void Grid::init(){
   td = new TextDisplay();
+  gd = new GraphicsDisplay();
   occupied = 4;
   capacity = n*n;
   theGrid.clear();
@@ -15,8 +92,13 @@ void Grid::init(){
   for (size_t i = 0; i < this->height; ++i){
     for (size_t j = 0; j < this->width; ++j){
       theGrid[i][j].attach(td);
+      theGrid[i][j].attach(gd);
     }
   }
+}
+
+void addBlock(Block& b){
+  blocks.push_back(b);
 }
 
 bool Grid::verifyMove(Block b, Move m){
@@ -53,6 +135,10 @@ bool Grid::verifyMove(Block b, Move m){
       return false;
 }
 
+bool Grid::verifyRotate(Block b, Rotate r){
+
+}
+
 void Grid::drawBlock(Block b){
   vector<vector<int>>& v = b.getCoords();
   for (auto a : v){
@@ -76,61 +162,19 @@ void Grid::setBlock(Block b){
   clearLines();
 }
 
-void Grid::clearLine(size_t r){
-  for (size_t i = 0; i < this->width; i++){
-    if (theGrid[r][i].getInfo().status == Status::Solid){
-      theGrid[r][i].getBlock().removeCell(r, i);
-    }
-    theGrid[r][i].setStatus(Status::Empty);
-  }
-  for (size_t i = r+1; i < this->height - 1; i++){ //maybe adjust more
-    for (size_t j = 0; j < this->width; j++){
-      Info aboveinfo = theGrid[i+1][j].getInfo();
-      Status abovestatus = aboveinfo.status;
-      Type abovetype = aboveinfo.type;
-      if (abovestatus != Status::Temp){
-        theGrid[i][j].setStatus(abovestatus);
-        theGrid[i][j].setType(abovetype);
-      }
-    }
-  }
+Level& getLevel(){
+  return lev;
 }
 
-void Grid::clearLines(){
-  vector<size_t> v = checkLines();
-  increaseScore((v.size() + getLevel().num()) *
-                (v.size() + getLevel().num()));
-  checkBlocks();
+void setLevel(Level l){
+  lev = l;
 }
 
-bool checkLine(vector<Cell>& v, r){
-  for (auto a : v){
-    if (a.getInfo().status != Status::Solid){
-      return false;
-    }
-  }
-  return true;
+int getScore(){
+  return score;
 }
 
-vector<size_t> Grid::checkLines(){
-  vector<size_t> v;
-  for (size_t r = 0; r < this->height; r++){
-    if (checkLine(theGrid[r])){
-      v.push_back(r);
-    }
-  }
+int getHiScore(){
+  return hiscore;
 }
 
-vector<int> Grid::checkBlocks(){
-  vector<int> idxs;
-  for (int i = 0; i < blocks.size(); i++){
-    if (blocks[i].getSize() == 0){
-      int l = blocks[i].getLevel();
-      increaseScore((l + 1) * (l + 1));
-      idxs.push_back(i);
-    }
-  }
-  for (int i = idxs.size() - 1; i >= 0; i--){ // check this actually works
-    blocks.erase(blocks.begin() + i);
-  }
-}
