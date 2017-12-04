@@ -73,6 +73,9 @@ class Grid {
   // Get hi score
   int getHiScore();
 
+  //void setGraphicsDisplay();
+  //void setTextDisplay();
+
   friend std::ostream &operator<<(std::ostream &out, const Grid &g);
 };
 
