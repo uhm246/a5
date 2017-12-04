@@ -1,4 +1,4 @@
-# CS 246 Final Project
+# CS Final Project
 
 ## Members:
 - Stephanie Fok
@@ -7,7 +7,7 @@
 
 ## Description
 
-This is our 
+This is our dank tetramino drop simulator
 
 ## File Structure
 
@@ -15,9 +15,3 @@ This is our
 - docs : documentation
 - uml : uml pdfs
 - desc : assignment sheets
-
-## UML
-
-## Plan of Attack
-
-## Specifications
