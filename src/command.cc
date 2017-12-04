@@ -23,6 +23,52 @@ Block Command::getCur(){
 	return b_cur;
 }
 
+void Command::block(string s){
+	if (s == "I"){
+		Block_I b;
+		this->b_cur = b;
+		this->r = 14;
+		this->c = 0;
+		g->drawBlock(b_cur, r, c);
+	} else if (s == "J"){
+		Block_J b;
+		this->b_cur = b;
+		this->r = 13;
+		this->c = 0;
+		g->drawBlock(b_cur, r, c);
+	} else if (s == "L"){
+		Block_L b;
+		this->b_cur = b;
+		this->r = 13;
+		this->c = 0;
+		g->drawBlock(b_cur, r, c);
+	} else if (s == "Z"){
+		Block_Z b;
+		this->b_cur = b;
+		this->r = 13;
+		this->c = 0;
+		g->drawBlock(b_cur, r, c);
+	} else if (s == "T"){
+		Block_T b;
+		this->b_cur = b;
+		this->r = 13;
+		this->c = 0;
+		g->drawBlock(b_cur, r, c);
+	} else if (s == "O"){
+		Block_O b;
+		this->b_cur = b;
+		this->r = 13;
+		this->c = 0;
+		g->drawBlock(b_cur, r, c);
+	} else if (s == "S"){
+		Block_S b;
+		this->b_cur = b;
+		this->r = 13;
+		this->c = 0;
+		g->drawBlock(b_cur, r, c);
+	} 
+}
+
 void Command::execute(){
 // I, J, L, Z, T, O, S, norandom, hint, seq, restart
 // right, down, cw, ccw, drop, left, levelup, level down, random
@@ -140,6 +186,7 @@ void Command::execute(){
 	} 
 
 	else if (type == "drop"){
+		cout << "dropped" << endl;
 		size_t old_r = r;
 		size_t old_c = c;
  		while (g->verifyMove(b_cur, Move::Down, r, c )){
