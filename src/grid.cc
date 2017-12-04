@@ -267,4 +267,7 @@ void Grid::setTextDisplay(TextDisplay *t){
   td = t;
 }
 
-
+ostream &operator<<(ostream &out, const Grid &g){
+  out << *g.td;
+  return out;
+}

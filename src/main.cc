@@ -19,7 +19,10 @@ int main(int argc, char *argv[]){
 	cin.exceptions(ios::eofbit|ios::failbit);
 	string cmd;
 	Grid game;
+	TextDisplay* td = new TextDisplay(0,0,0);
+	game.setTextDisplay(td);
 	game.init(); // initialize game
+	cout << game;
 	if (argc > 2){
 		string argv1 = argv[1];
 		if (argv1 == "-seed"){
@@ -69,6 +72,7 @@ int main(int argc, char *argv[]){
     // then check individual lef, levelu, leveld.
 	try {
 		while(true){
+			cout << game;
 			if (game.getSeq()){
 				int size = seq.size();
 				while (game.getSeqInd() < size){
