@@ -9,7 +9,6 @@
 #include "block.h"
 
 class Command {
-	Level* level = nullptr;
 	Grid* g = nullptr;
 	Block b_cur;
 	Block b_next;
@@ -20,7 +19,6 @@ class Command {
 public:
 	void init(Block b1, Block b2);
 	void setGrid(Grid* grid);
-	void setLevel(Level* l);
 	void setType(std::string s);
 	void setFile(std::string s);
 	void execute();

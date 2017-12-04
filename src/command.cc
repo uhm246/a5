@@ -11,10 +11,6 @@ void Command::setGrid(Grid *grid){
 	g = grid;
 }
 
-void Command::setLevel(Level *l){
-	level = l;
-}
-
 void Command::setType(string s){
 	type = s;
 }
@@ -84,7 +80,7 @@ void Command::execute(){
 	} 
 
 	else if (type == "norandom"){
-		level->setRandom(false);
+		g->getLevel().setRandom(false);
 
 	} 
 
@@ -152,83 +148,19 @@ void Command::execute(){
 		g->voidBlock(b_cur, old_r, old_c);
 		g->setBlock(b_cur, r, c);
 		b_cur = b_next;
-		b_next = level->getBlock();
+		b_next = g->getLevel().getBlock();
 	} 
 
 	else if (type == "levelup"){
-		switch(level->num()){
-				case(0):
-				{
-					Level1 l;
-					g->setLevel(l);
-					level = &l;
-				}
-				case(1):
-				{
-					Level2 l;
-					g->setLevel(l);
-					level = &l;
-				}
-				case(2):
-				{
-					Level3 l;
-					g->setLevel(l);
-					level = &l;
-				}
-				case(3):
-				{
-					//Level4 l;
-					Level1 l;
-					g->setLevel(l);
-					level = &l;
-				}
-				case(4):
-				{
-					//Level4 l;
-					Level1 l;
-					g->setLevel(l);
-					level = &l;
-				}
-			}		
+		g->getLevel().increaseLevel();
 	} 
 
 	else if (type == "leveldown"){
-		switch(level->num()){
-				case(1):
-				{
-					Level0 l { "sequence" };
-					g->setLevel(l);
-					level = &l;
-				}
-				case(2):
-				{
-					Level1 l;
-					g->setLevel(l);
-					level = &l;
-				}
-				case(3):
-				{
-					Level2 l;
-					g->setLevel(l);
-					level = &l;
-				}
-				case(4):
-				{
-					Level3 l;
-					g->setLevel(l);
-					level = &l;
-				}
-				case(0):
-				{
-					Level0 l { "sequence" };
-					g->setLevel(l);
-					level = &l;
-				}
-			}
+		g->getLevel().decreaseLevel();
 	} 
 
 	else if (type == "random"){
-		level->setRandom(true);
+		g->getLevel().setRandom(true);
 	} 
 
 	else if (type == "none"){

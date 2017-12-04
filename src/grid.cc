@@ -235,11 +235,7 @@ int Grid::checkHoles(size_t r, size_t c, size_t width, size_t depth){
 }
 
 Level& Grid::getLevel(){
-  return lev;
-}
-
-void Grid::setLevel(Level l){
-  lev = l;
+  return level;
 }
 
 int Grid::getScore(){

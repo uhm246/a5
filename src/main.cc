@@ -46,8 +46,6 @@ int main(int argc, char *argv[]){
 	TextDisplay* td = new TextDisplay(0,0,0);
 	game.setTextDisplay(td);
 	game.init(); // initialize game
-	Level1 test;
-	game.setLevel(test);
 	int argind = 1;
 	while (argind < argc - 1){
 		string argv1 = argv[argind];
@@ -68,25 +66,7 @@ int main(int argc, char *argv[]){
 	  	} else if (argv1 == "-startlevel"){
 	  		string l = argv[argind + 1];
 			int lev = stoi(l);
-			if (lev == 1){
-				Level1 start;
-				game.setLevel(start);
-			} else if (lev == 2){
-				Level3 start;
-				game.setLevel(start);
-			} else if (lev == 3){
-				Level1 start;
-				//Level0 start { "sequence" };
-				game.setLevel(start);
-			} else if (lev == 4){
-				//Level0 start { ;
-				Level1 start;
-				game.setLevel(start);
-			} else {
-				//evel0 start;
-				Level1 start;
-				game.setLevel(start);
-			}
+			game.getLevel().setLevel(lev);
 			argind += 2;
 		}
 	}
@@ -106,8 +86,6 @@ int main(int argc, char *argv[]){
     // Initialize Command class
     Command command;
     command.setGrid(&game); 
-    command.setLevel(&game.getLevel());
-    
     Block b1 = game.getLevel().getBlock();
     Block b2 = game.getLevel().getBlock();
     command.init(b1, b2);

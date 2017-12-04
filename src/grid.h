@@ -26,13 +26,14 @@ class Grid {
   bool textmode = false;
   bool seq = false;
   int seqind = 0;
-  int level = 1;
   void resetScore();
   void increaseScore(int i);
   void setHiScore();
   void addBlock(Block* b);
   std::vector<int> checkBlocks();
   std::vector<size_t> checkLines();
+
+  Level level;
  
  public:
 
@@ -68,10 +69,7 @@ class Grid {
   int checkHoles(size_t r, size_t c, size_t width, size_t depth);
 
   // Get current level
-  Level getLevel();
-
-  // Set current level
-  void setLevel(int n);
+  Level& getLevel();
 
   // Get current score
   int getScore();

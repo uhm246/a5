@@ -9,10 +9,19 @@
 
 using namespace std;
 
-Level::Level(string s): sequence_file(s), index(0){
-  n = 0;
+Level::Level(){
   char b;
-  ifstream file;
+  ifstream file("sequnece");
+  while (file >> b){
+    sequence.push_back(b);
+  }
+}
+
+void Level::setSequence(string s){
+  ifstream file(s);
+  sequence.clear();
+  index = 0;
+  char b;
   while (file >> b){
     sequence.push_back(b);
   }
@@ -141,6 +150,22 @@ void Level::setSeed(int s){
 
 void Level::setRandom(bool b){
   random = b;
+}
+
+void Level::setLevel(int i){
+  n = i;
+}
+
+void Level::increaseLevel(){
+  if (n < 4){
+    n++;
+  }
+}
+
+void Level::decreaseLevel(){
+  if (n > 0){
+    n--;
+  }
 }
 
 

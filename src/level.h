@@ -9,18 +9,22 @@
 
 class Level{
   std::string sequence_file;
-  int index;
+  int index = 0;
   std::vector<char> sequence;
-  int n;
+  int n = 1;
   bool random = false;
   int seed = 0;
 public:
-  Level(std::string s);
+  Level();
   Block getBlock();
   int num();
   bool isRandom();
   void setSeed(int s);
   void setRandom(bool b);
+  void setLevel(int i);
+  void setSequence(std::string s);
+  void increaseLevel();
+  void decreaseLevel();
 };
 
 /*
