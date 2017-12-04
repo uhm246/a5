@@ -14,6 +14,10 @@ size_t Cell::getCol(){
   return c;
 }
 
+Type Cell::getType() {
+	return type;
+}
+
 void Cell::setStatus(Status s){
   status = s;
   State st { r, c, status, type };

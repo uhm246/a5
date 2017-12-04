@@ -9,12 +9,13 @@
 class Cell;
 
 class TextDisplay: public Observer<State> {
-  std::vector<std::vector<string>> theDisplay;
-  const int gridSize;
+  std::vector<std::string> theDisplay;
+  const int gridWidth = 11;
+  const int gridHeight = 18;
  public:
-  TextDisplay(int n);
+  TextDisplay(int level, int score, int hiScore);
 
-  void notify(Subject<Info, State> &whoNotified) override;
+  void notify(Subject<State> &whoNotified) override;
 
   friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
 };

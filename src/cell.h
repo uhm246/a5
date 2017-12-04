@@ -16,6 +16,7 @@ class Cell : public Subject<State> {
   Cell(size_t r, size_t c);
   size_t getRow();
   size_t getCol();
+  Type getType();
   void setStatus(Status s);
   void setType(Type t);
   Block* getBlock();
