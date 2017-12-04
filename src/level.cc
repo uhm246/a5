@@ -8,7 +8,12 @@
 
 using namespace std;
 
+int Level::num(){
+  return n;
+}
+
 Level0::Level0(string s): sequence_file(s), index(0){
+  n = 0;
   char b;
   ifstream file;
   while (file >> b){
@@ -44,6 +49,10 @@ Block Level0::getBlock(){
   }
 }
 
+Level1::Level1(){
+  n = 1;
+}
+
 Block Level1::getBlock(){
   srand(time(NULL)); // reset seed
   int n = rand() % 12;
@@ -71,6 +80,10 @@ Block Level1::getBlock(){
   }
 }
 
+Level2::Level2(){
+  n = 2;
+}
+
 Block Level2::getBlock(){
   srand(time(NULL)); // reset seed
   int n = rand() % 7;
@@ -96,6 +109,10 @@ Block Level2::getBlock(){
     Block_O b;
     return b;
   }
+}
+
+Level3::Level3(){
+  n = 3;
 }
 
 Block Level3::getBlock(){

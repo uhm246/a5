@@ -60,6 +60,7 @@ vector<int> Grid::checkBlocks(){
   for (int i = idxs.size() - 1; i >= 0; i--){ // check this actually works
     blocks.erase(blocks.begin() + i);
   }
+  return idxs;
 }
 
 bool checkLine(vector<Cell>& v){
@@ -78,6 +79,7 @@ vector<size_t> Grid::checkLines(){
       v.push_back(r);
     }
   }
+  return v;
 }
 
 void Grid::init(){
@@ -104,29 +106,38 @@ bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
       for (auto a : v){
         if (a[1] > 0){
           State i = theGrid[a[0]][a[1]-1].getState();
-          return i.status != Status::Solid;
+          if (i.status == Status::Solid){
+            return false;
+          }
         } else {
           return false;
         }
       }
+      return true;
     case Move::Right:
       for (auto a : v){
         if (a[0] < this->width){
           State i = theGrid[a[0]+1][a[1]].getState();
-          return i.status != Status::Solid;
+          if (i.status == Status::Solid){
+            return false;
+          }
         } else {
           return false;
         }
       }
+      return true;
     case Move::Left:
       for (auto a : v){
         if (a[0] > 0){
           State i = theGrid[a[0]-1][a[1]].getState();
-          return i.status != Status::Solid;
+          if (i.status == Status::Solid){
+            return false;
+          }
         } else {
           return false;
         }
       }
+      return true;
     default: 
       return false;
     }
@@ -137,11 +148,14 @@ bool Grid::verifyRotate(Block b, Rotate m, size_t r, size_t c){
   for (auto a : v){
     if (a[1] > 0 && a[0] > 0 && a[0] < this->width){
       State i = theGrid[a[0]][a[1]].getState();
-      return i.status != Status::Solid;
+      if (i.status == Status::Solid){
+        return false;
+      }
     } else {
       return false;
     }
   }
+  return true;
 }
 
 bool Grid::verifySwitch(Block b, size_t r, size_t c){
@@ -149,11 +163,14 @@ bool Grid::verifySwitch(Block b, size_t r, size_t c){
   for (auto a : v){
     if (a[1] > 0 && a[0] > 0 && a[0] < this->width){
       State i = theGrid[a[0]][a[1]].getState();
-      return i.status != Status::Solid;
+      if (i.status == Status::Solid){
+        return false;
+      }
     } else {
       return false;
     }
   }
+  return true;
 }
 
 void Grid::drawBlock(Block b, size_t r, size_t c){
