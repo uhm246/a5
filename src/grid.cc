@@ -81,8 +81,6 @@ vector<size_t> Grid::checkLines(){
 }
 
 void Grid::init(){
-  //td = new TextDisplay();
-  //gd = new GraphicsDisplay();
   resetScore();
   theGrid.clear();
   theGrid.resize(this->height);
@@ -93,7 +91,7 @@ void Grid::init(){
   }
   for (size_t i = 0; i < this->height; ++i){
     for (size_t j = 0; j < this->width; ++j){
-      //theGrid[i][j].attach(td);
+      theGrid[i][j].attach(td);
       //theGrid[i][j].attach(gd);
     }
   }
@@ -183,16 +181,18 @@ void Grid::setBlock(Block b, size_t r, size_t c){
   addBlock(&b);
 }
 
-int checkHoles(size_t r, size_t c, size_t width, size_t depth){
+int Grid::checkHoles(size_t r, size_t c, size_t width, size_t depth){
   int holes = 0;
   for (int i = 0; i < depth; i++){
-    if (r - depth - 1 >= 0){
+    bool not_zero = true;
+    if (not_zero){
       for (int j = r; j < r + width; j++){
         if (r < this->width && 
-            theGrid[r][j].getState().status == Status::Empty){
+            theGrid[r - depth - 1][j].getState().status == Status::Empty){
           holes++;
         }
       }
+      if (r - depth - 1 == 0) not_zero = false;
     }
   }
   return holes;
@@ -214,3 +214,6 @@ int Grid::getHiScore(){
   return hiscore;
 }
 
+void Grid::setTextDisplay(TextDisplay *t){
+  td = t;
+}

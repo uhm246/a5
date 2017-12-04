@@ -7,12 +7,13 @@
 #include "state.h"
 #include "block.h"
 #include "level.h"
+#include "textdisplay.h"
 
 class Grid {
   
   std::vector<std::vector<Cell>> theGrid;
   std::vector<Block*> blocks;
-  //TextDisplay *td = nullptr;
+  TextDisplay *td = nullptr;
   //GraphicsDisplay *gd = nullptr;
   Observer<State> *ob = nullptr; 
   
@@ -74,7 +75,7 @@ class Grid {
   int getHiScore();
 
   //void setGraphicsDisplay();
-  //void setTextDisplay();
+  void setTextDisplay(TextDisplay *t);
 
   friend std::ostream &operator<<(std::ostream &out, const Grid &g);
 };
