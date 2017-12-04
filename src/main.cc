@@ -6,8 +6,8 @@
 #include "observer.h"
 #include "textdisplay.h"
 #include "subject.h"
-#include "window.h"
-#include "graphicsdisplay.h"
+//#include "window.h"
+//#include "graphicsdisplay.h"
 #include "command.h"
 #include "state.h"
 
@@ -20,13 +20,35 @@ int main(int argc, char *argv[]){
 		if (argv[1] == "-seed"){
 			game.seed = argv[2];
 		} else if (argv[1] == "-scriptfile"){
-			game.scriptfile = argv[2];
-		} else if (argv[1] == "-startlevel"){
-			game.level = argv[2];
+			file = argv[2];
+			string b;
+  			ifstream file;
+  			vector<string> seq;
+  			while (file >> b){
+    			seq.push_back(b);
+    		}
+  		} else if (argv[1] == "-startlevel"){
+			int lev = argv[2];
+			if (lev == 1){
+				Level1 start;
+				g.setLevel(start);
+			} else if (lev == 2){
+				Level3 start;
+				g.setLevel(start);
+			} else if (lev == 3){
+				Level0 start;
+				g.setLevel(start);
+			} else if (lev == 4){
+				Level0 start;
+				g.setLevel(start);
+			} else {
+				Level0 start;
+				g.setLevel(start);
+			}
 		}
 	} else if (argc > 0){
 		if (argv[1] == "-text"){
-			game.mode = "text"; //text only 
+			game.textmode = true; //text only 
 		}
 	}
     // lef, ri, do, cl, co, dr, levelu, leveld, n, ra, 
@@ -36,7 +58,14 @@ int main(int argc, char *argv[]){
     // then check individual lef, levelu, leveld.
 	try {
 		while(true){
-			cin >> cmd;
+			if (game.seq){
+				while (game.seqind < seq.size()){
+					cmd = seq[seqind];
+					seqind += 1; 
+				}
+			} else {
+				cin >> cmd;
+			}
 			int i = 0;
 			int rep = 0;
 			bool gravity = false;
@@ -53,15 +82,15 @@ int main(int argc, char *argv[]){
 			}
 			cmd.erase(0, i);
 			if (cmd.length() > 0){
-				switch(cmd[0]){
-				case 'I': command.type = "I";
-				case 'J': command.type = "J";
-				case 'L': command.type = "L";
-				case 'Z': command.type = "Z";
-				case 'T': command.type = "T";
-				case 'O': command.type = "O";
-				case 'S': command.type = "S";
-				case 'n':
+				string check = cmd[0];
+				if (check == "I") command.type = "I";
+				if (check == "J") command.type = "J";
+				if (check == "L") command.type = "L";
+				if (check == "Z") command.type = "Z";
+				if (check == "T") command.type = "T";
+				if (check == "O") command.type = "O";
+				if (check == "S") command.type = "S";
+				if (check == "n") {
 					if (highLevel){
 							rep = 1;
 							command.type = "n";
@@ -69,32 +98,41 @@ int main(int argc, char *argv[]){
 							cin >> file;
 							command.file = file;
 						}
-				case 'h':
-					rep = 1;
+					}
+				if (check == "h"){
+					rep = 1; 
 					command.type = "h";
+				} 
 			} else if (cmd.length() > 1){
-				switch(cmd.substr(0,2)){
-					case 'se': command.type = "se";
-					case 're':
-						rep = 1; 
-						command.type = "re";
-					case 'ri': 
-						command.type = "ri";
-						gravity = true;
-					case 'do': command.type = "do";
-					case 'cl': 
-						command.type = "cw";
-						gravity = true;
-					case 'co': 
-						command.type = "ccw";
-						gravity = true;
-					case 'dr': 
-						command.type = "dr";
-					case 'ra':
-						if (highLevel){
-							rep = 1;
-							command.type = "ra";
-						}
+				string check = cmd.substr(0, 2);
+				if (check == "se") command.type = "se";
+				if (check == "re"){
+					rep = 1;
+					command.type = "re";
+				}
+				if (check == "ri"){
+					gravity = true;
+					command.type = "re";
+				}
+				if (check == "do"){
+					command.type = "do";
+				}
+				if (check == "cw"){
+					gravity = true;
+					command.type = "cw";
+				}
+				if (check == "co"){
+					gravity = true;;
+					command.type = "ccw";
+				}
+				if (check == "dr"){
+					command.type = "dr";
+				}
+				if (check == "ra"){
+					if (highLevel){
+						rep = 1;
+						command.type = "ra";
+					}
 				}
 			} else if (cmd.length() > 2 && cmd.substr(0, 3) == lef){
 				command.type = "lef";
