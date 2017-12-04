@@ -46,6 +46,9 @@ class Grid {
   // Verify that a rotate is valid
   bool verifyRotate(Block b, Rotate m, size_t r, size_t c);
 
+  // Verify that a block switch is valid
+  bool verifySwitch(Block b, size_t r, size_t c);
+
   // Draw a block on board (this is a Temp block)
   void drawBlock(Block b, size_t r, size_t c);
 

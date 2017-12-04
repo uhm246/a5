@@ -21,6 +21,7 @@ public:
 	int rotation = 0; 
 	void toggleHeavy();
 	int getLevel();
+	void setLevel(int l);
 	int getSize();
 	Type getType();
 	void initCells(size_t r, size_t c);

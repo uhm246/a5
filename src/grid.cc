@@ -135,7 +135,27 @@ bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
 }
 
 bool Grid::verifyRotate(Block b, Rotate m, size_t r, size_t c){
+  vector<vector<int>> v = b.getRotatedCoords(r, c, m);
+  for (auto a : v){
+    if (a[1] > 0 && a[0] > 0 && a[0] < this->width){
+      State i = theGrid[a[0]][a[1]].getState();
+      return i.status != Status::Solid;
+    } else {
+      return false;
+    }
+  }
+}
 
+bool Grid::verifySwitch(Block b, size_t r, size_t c){
+  vector<vector<int>> v = b.getCoords(r, c);
+  for (auto a : v){
+    if (a[1] > 0 && a[0] > 0 && a[0] < this->width){
+      State i = theGrid[a[0]][a[1]].getState();
+      return i.status != Status::Solid;
+    } else {
+      return false;
+    }
+  }
 }
 
 void Grid::drawBlock(Block b, size_t r, size_t c){

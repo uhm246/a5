@@ -77,6 +77,10 @@ int Block::getLevel(){
 	return level;
 }
 
+void Block::setLevel(int l){
+	level = l;
+}
+
 int Block::getSize(){
 	return cells.size();
 }
