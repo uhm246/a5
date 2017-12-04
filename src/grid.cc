@@ -183,6 +183,21 @@ void Grid::setBlock(Block b, size_t r, size_t c){
   addBlock(&b);
 }
 
+int checkHoles(size_t r, size_t c, size_t width, size_t depth){
+  int holes = 0;
+  for (int i = 0; i < depth; i++){
+    if (r - depth - 1 >= 0){
+      for (int j = r; j < r + width; j++){
+        if (r < this->width && 
+            theGrid[r][j].getState().status == Status::Empty){
+          holes++;
+        }
+      }
+    }
+  }
+  return holes;
+}
+
 Level& Grid::getLevel(){
   return lev;
 }

@@ -58,6 +58,9 @@ class Grid {
   // Set the block in stone in said location (this is a Solid block)
   void setBlock(Block b, size_t r, size_t c);
 
+  // Aggregate the number of 'holes' below specified
+  int checkHoles(size_t r, size_t c, size_t width, size_t depth);
+
   // Get current level
   Level& getLevel();
 
