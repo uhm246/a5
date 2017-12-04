@@ -24,21 +24,25 @@ int main(int argc, char *argv[]){
 	game.init(); // initialize game
 	Level1 test;
 	game.setLevel(test);
-	if (argc > 2){
-		string argv1 = argv[1];
+	int argind = 1;
+	while (argind < argc - 1){
+		string argv1 = argv[argind];
 		if (argv1 == "-seed"){
-			string seed = argv[2];
+			string seed = argv[argind + 1];
 			game.setSeed(stoi(seed));
+			argind += 2;
 		} else if (argv1 == "-scriptfile"){
 			string filename;
-			filename = argv[2];
+			filename = argv[argind + 1];
 			string b;
-  		ifstream f(filename);
-  		while (f >> b){
-    		seq.push_back(b);
-    	}
-  	} else if (argv1 == "-startlevel"){
-  		string l = argv[2];
+			argind += 2;
+  			ifstream f(filename);
+  			while (f >> b){
+    			seq.push_back(b);
+    		}
+
+	  	} else if (argv1 == "-startlevel"){
+	  		string l = argv[argind + 1];
 			int lev = stoi(l);
 			if (lev == 1){
 				Level1 start;
@@ -59,12 +63,15 @@ int main(int argc, char *argv[]){
 				Level1 start;
 				game.setLevel(start);
 			}
+			argind += 2;
 		}
-	} else if (argc > 1){
-		string argv1 = argv[1];
+	}
+	if (argind < argc){
+		string argv1 = argv[argind];
 		if (argv1 == "-text"){
 			game.setTextMode(true); //text only 
 		}
+		argind += 1;
 	}
     // lef, ri, do, cl, co, dr, levelu, leveld, n, ra, 
     // se, re, ri, do, cl, co, dr, ra
@@ -88,7 +95,7 @@ int main(int argc, char *argv[]){
 			//   else take in from stdin
 			if (game.getSeq()){
 				int size = seq.size();
-				while (game.getSeqInd() < size){
+				if (game.getSeqInd() < size){
 					cmd = seq[game.getSeqInd()];
 					game.incrementSeqInd(); 
 				}
@@ -207,3 +214,4 @@ int main(int argc, char *argv[]){
 	}
 	catch (ios::failure &) {}  // Any I/O failure quits
 }
+
