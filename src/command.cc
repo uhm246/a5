@@ -2,16 +2,9 @@
 
 using namespace std;
 
-void redraw(Grid* g, Block *b_cur, Block *b, 
-            size_t old_r, size_t old_c, size_t r, size_t c){
-	if (b_cur == nullptr){
-		b_cur = new Block_I();
-	}
-	cout << "VOID" << endl;
-	g->voidBlock(*b_cur, old_r, old_c);
-	b_cur = b;
-	cout << "DRAW" << endl;
-	g->drawBlock(*b_cur, r, c);
+void Command::init(Block b1, Block b2){
+	b_cur = b1;
+	b_next = b2;
 }
 
 void Command::setGrid(Grid *grid){
@@ -36,61 +29,54 @@ void Command::execute(){
 	size_t old_r = r;
 	size_t old_c = c;
 	if (type == "I"){
-			Block_I b;
-			//b.initCells(14,0);
-			old_r = r;
-			old_c = c;
-			r = 14;
-			c = 0;
-			redraw(g, b_cur, &b, old_r, old_c, r, c);
+		Block_I b;
+		g->voidBlock(b_cur, r, c);
+		this->b_cur = b;
+		this->r = 14;
+		this->c = 0;
+		g->drawBlock(b_cur, r, c);
 	} else if (type == "J"){
 		Block_J b;
-		//b.initCells(13,0);
-		old_r = r;
-		old_c = c;
-		r = 13;
-		c = 0;
-		redraw(g, b_cur, &b, old_r, old_c, r, c);
+		g->voidBlock(b_cur, r, c);
+		this->b_cur = b;
+		this->r = 13;
+		this->c = 0;
+		g->drawBlock(b_cur, r, c);
 	} else if (type == "L"){
 		Block_L b;
-		//b.initCells(13,0);
-		old_r = r;
-		old_c = c;
-		r = 13;
-		c = 0;
-		redraw(g, b_cur, &b, old_r, old_c, r, c);
+		g->voidBlock(b_cur, r, c);
+		this->b_cur = b;
+		this->r = 13;
+		this->c = 0;
+		g->drawBlock(b_cur, r, c);
 	} else if (type == "Z"){
 		Block_Z b;
-		//b.initCells(13,0);
-		old_r = r;
-		old_c = c;
-		r = 13;
-		c = 0;
-		redraw(g, b_cur, &b, old_r, old_c, r, c);
+		g->voidBlock(b_cur, r, c);
+		this->b_cur = b;
+		this->r = 13;
+		this->c = 0;
+		g->drawBlock(b_cur, r, c);
 	} else if (type == "T"){
 		Block_T b;
-		//b.initCells(13,0);
-		old_r = r;
-		old_c = c;
-		r = 13;
-		c = 0;
-		redraw(g, b_cur, &b, old_r, old_c, r, c);
+		g->voidBlock(b_cur, r, c);
+		this->b_cur = b;
+		this->r = 13;
+		this->c = 0;
+		g->drawBlock(b_cur, r, c);
 	} else if (type == "O"){
 		Block_O b;
-		//b.initCells(13,0);
-		old_r = r;
-		old_c = c;
-		r = 13;
-		c = 0;
-		redraw(g, b_cur, &b, old_r, old_c, r, c);
+		g->voidBlock(b_cur, r, c);
+		this->b_cur = b;
+		this->r = 13;
+		this->c = 0;
+		g->drawBlock(b_cur, r, c);
 	} else if (type == "S"){
 		Block_S b;
-		//b.initCells(13,0);
-		old_r = r;
-		old_c = c;
-		r = 13;
-		c = 0;
-		redraw(g, b_cur, &b, old_r, old_c, r, c);
+		g->voidBlock(b_cur, r, c);
+		this->b_cur = b;
+		this->r = 13;
+		this->c = 0;
+		g->drawBlock(b_cur, r, c);
 	} else if (type == "norandom"){
 		level->setRandom(false);
 	} else if (type == "hint"){
@@ -102,43 +88,43 @@ void Command::execute(){
 	} else if (type == "restart"){
 		g->init();
 	} else if (type == "right"){
-		if (g->verifyMove(*b_cur, Move::Right, r, c)){
+		if (g->verifyMove(b_cur, Move::Right, r, c)){
 			c += 1;
 		} 
-		redraw(g, b_cur, b_cur, old_r, old_c, r, c);
+		//redraw(g, b_cur, b_cur, old_r, old_c, r, c);
 	} else if (type == "down"){
-		if (g->verifyMove(*b_cur, Move::Down, r, c)){
+		if (g->verifyMove(b_cur, Move::Down, r, c)){
 				r -= 1;
 			}
-		redraw(g, b_cur, b_cur, old_r, old_c, r, c);
+		//redraw(g, b_cur, b_cur, old_r, old_c, r, c);
 		
 	} else if (type == "cw"){
-		if (g->verifyRotate(*b_cur, Rotate::Clockwise, r, c)){
-				Block* b = b_cur->clockwise(b_cur);
-				redraw(g, b_cur, b, old_r, old_c, r, c);	
+		if (g->verifyRotate(b_cur, Rotate::Clockwise, r, c)){
+				//Block* b = b_cur.clockwise(b_cur);
+				//redraw(g, b_cur, b, old_r, old_c, r, c);	
 			}
 	} else if (type == "ccw"){
-		if (g->verifyRotate(*b_cur, Rotate::Counterclockwise, r, c)){
-				Block* b = b_cur->counterclockwise(b_cur);
-				redraw(g, b_cur, b, old_r, old_c, r, c);
+		if (g->verifyRotate(b_cur, Rotate::Counterclockwise, r, c)){
+				//Block* b = b_cur.counterclockwise(b_cur);
+				//redraw(g, b_cur, b, old_r, old_c, r, c);
 			}
 		
 	} else if (type == "drop"){
-		while (g->verifyMove(*b_cur, Move::Down, r, c )){
+		while (g->verifyMove(b_cur, Move::Down, r, c )){
 				r -= 1;
 			}
-			g->setBlock(*b_cur, r, c);
-			g->voidBlock(*b_cur, old_r, old_c);
-			g->drawBlock(*b_cur, r, c);
-			b_cur = b_next;
+			g->setBlock(b_cur, r, c);
+			g->voidBlock(b_cur, old_r, old_c);
+			g->drawBlock(b_cur, r, c);
+			//b_cur = b_next;
 			Block next = level->getBlock();	
-			b_next = &next;	
-	} else if (type == "lef"){
-		if (g->verifyMove(*b_cur, Move::Left, r, c)){
+			//b_next = &next;	
+	} else if (type == "left"){
+		if (g->verifyMove(b_cur, Move::Left, r, c)){
 				c -= 1;
 			}
-		redraw(g, b_cur, b_cur, old_r, old_c, r, c);	
-	} else if (type == "levelu"){
+		//redraw(g, b_cur, b_cur, old_r, old_c, r, c);	
+	} else if (type == "levelup"){
 		switch(level->num()){
 				case(0):
 				{
@@ -173,7 +159,7 @@ void Command::execute(){
 					level = &l;
 				}
 			}		
-	} else if (type == "leveld"){
+	} else if (type == "leveldown"){
 		switch(level->num()){
 				case(1):
 				{
@@ -206,7 +192,7 @@ void Command::execute(){
 					level = &l;
 				}
 			}
-	} else if (type == "ra"){
+	} else if (type == "random"){
 		level->setRandom(true);
 	} else if (type == "none"){
 

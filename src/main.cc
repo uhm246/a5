@@ -22,6 +22,8 @@ int main(int argc, char *argv[]){
 	TextDisplay* td = new TextDisplay(0,0,0);
 	game.setTextDisplay(td);
 	game.init(); // initialize game
+	Level1 test;
+	game.setLevel(test);
 	if (argc > 2){
 		string argv1 = argv[1];
 		if (argv1 == "-seed"){
@@ -70,9 +72,20 @@ int main(int argc, char *argv[]){
     // switch for the single letter and double letter cmds
     // then check individual lef, levelu, leveld.
 	try {
+		// Initialize Command class
 		Command command;
+		command.setGrid(&game); 
+		command.setLevel(&game.getLevel());
+		Block_I b1;
+		Block_I b2;
+		command.init(b1, b2);
 		while(true){
+			cmd = "";
+			// Update Board
 			cout << game;
+
+			// If sequence is on, then take blocks in from seq
+			//   else take in from stdin
 			if (game.getSeq()){
 				int size = seq.size();
 				while (game.getSeqInd() < size){
@@ -82,25 +95,30 @@ int main(int argc, char *argv[]){
 			} else {
 				cin >> cmd;
 			}
+
 			int i = 0;
 			int rep = 1;
 			bool gravity = false;
 			bool highLevel = false;
+
 			if (game.getLevel().num() >= 3){
 				highLevel = true;
 			}
-			command.setGrid(&game); 
-			command.setLevel(&game.getLevel());
+
+			// Initialize rep if first char is digit
 			if (isdigit(cmd[i])){
 				rep = 0;
 			}
+
+			// Increment rep as needed
 			while (isdigit(cmd[i])){
 				rep = rep * 10 + cmd[i];
 				i += 1;
 			}
-			cmd.erase(0, i);
+
+			// First class of commands: 1 Letter
 			if (cmd.length() > 0){
-				string check = cmd.substr(0,1);
+				string check = cmd.substr(i,i+1);
 				if (check == "I") command.setType("I"); 
 				if (check == "J") command.setType("J");
 				if (check == "L") command.setType("L");
@@ -111,29 +129,32 @@ int main(int argc, char *argv[]){
 				if (check == "n") {
 					if (highLevel){
 							rep = 1;
-							command.setType("n");
+							command.setType("norandom");
 							string file;
 							cin >> file;
 							command.setFile(file);
 						}
 					}
+
 				if (check == "h"){
 					rep = 1; 
-					command.setType("h");
+					command.setType("hint");
 				} 
+
+			// 2 Letter
 			} else if (cmd.length() > 1){
-				string check = cmd.substr(0, 2);
-				if (check == "se") command.setType("se");
+				string check = cmd.substr(i, i+2);
+				if (check == "se") command.setType("seq");
 				if (check == "re"){
 					rep = 1;
-					command.setType("re");
+					command.setType("restart");
 				}
 				if (check == "ri"){
 					gravity = true;
-					command.setType("re");
+					command.setType("right");
 				}
 				if (check == "do"){
-					command.setType("do");
+					command.setType("down");
 				}
 				if (check == "cw"){
 					gravity = true;
@@ -144,36 +165,41 @@ int main(int argc, char *argv[]){
 					command.setType("ccw");
 				}
 				if (check == "dr"){
-					command.setType("dr");
+					command.setType("drop");
 				}
 				if (check == "ra"){
 					if (highLevel){
 						rep = 1;
-						command.setType("ra");
+						command.setType("random");
 					}
 				}
-			} else if (cmd.length() > 2 && cmd.substr(0, 3) == "lef"){
-				command.setType("lef");
+
+			// 3 Letter
+			} else if (cmd.length() > 2 && cmd.substr(i, i+3) == "lef"){
+				command.setType("letf");
+
+			// Longer
 			} else if (cmd.length() > 5){
-				if (cmd.substr(0, 6) == "levelu"){
-					command.setType("levelu");
-				} else if (cmd.substr(0, 6) == "leveld"){
-					command.setType("leveld");
+				if (cmd.substr(i, i+6) == "levelu"){
+					command.setType("levelup");
+				} else if (cmd.substr(i, i+6) == "leveld"){
+					command.setType("leveldown");
 				}
 			} else {
 				command.setType("none");
 			}
+
 			while (rep > 0){
 				command.execute();
 				rep -= 1;
 			}
+
 			if (gravity && highLevel){
 				Command heavy;
 				heavy.setType("down");
 				heavy.execute();
 			}
 		}
-
 	}
 	catch (ios::failure &) {}  // Any I/O failure quits
 }

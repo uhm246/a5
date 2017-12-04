@@ -188,7 +188,7 @@ void Grid::drawBlock(Block b, size_t r, size_t c){
 }
 
 void Grid::voidBlock(Block b, size_t r, size_t c){
-  cout << "getCoords (voidBlock)" << endl;
+  cout << "getCoords (voidBlock) " << endl;
   vector<vector<int>> v = b.getCoords(r, c);
   for (auto a : v){
     cout << "r: " << a[0] << " c: " << a[1] << endl;
