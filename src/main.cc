@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
+#include <fstream>
 #include "grid.h"
 #include "observer.h"
 #include "textdisplay.h"
@@ -11,44 +12,54 @@
 #include "command.h"
 #include "state.h"
 
+using namespace std;
+
 int main(int argc, char *argv[]){
+	vector<string> seq;
 	cin.exceptions(ios::eofbit|ios::failbit);
 	string cmd;
 	Grid game;
 	game.init(); // initialize game
-	if (argc > 1){
-		if (argv[1] == "-seed"){
-			game.seed = argv[2];
-		} else if (argv[1] == "-scriptfile"){
-			file = argv[2];
+	if (argc > 2){
+		string argv1 = argv[1];
+		if (argv1 == "-seed"){
+			string seed = argv[2];
+			game.setSeed(stoi(seed));
+		} else if (argv1 == "-scriptfile"){
+			string filename;
+			filename = argv[2];
 			string b;
-  			ifstream file;
-  			vector<string> seq;
-  			while (file >> b){
-    			seq.push_back(b);
-    		}
-  		} else if (argv[1] == "-startlevel"){
-			int lev = argv[2];
+  		ifstream f(filename);
+  		while (f >> b){
+    		seq.push_back(b);
+    	}
+  	} else if (argv1 == "-startlevel"){
+  		string l = argv[2];
+			int lev = stoi(l);
 			if (lev == 1){
 				Level1 start;
-				g.setLevel(start);
+				game.setLevel(start);
 			} else if (lev == 2){
 				Level3 start;
-				g.setLevel(start);
+				game.setLevel(start);
 			} else if (lev == 3){
-				Level0 start;
-				g.setLevel(start);
+				Level1 start;
+				//Level0 start { "sequence" };
+				game.setLevel(start);
 			} else if (lev == 4){
-				Level0 start;
-				g.setLevel(start);
+				//Level0 start { ;
+				Level1 start;
+				game.setLevel(start);
 			} else {
-				Level0 start;
-				g.setLevel(start);
+				//evel0 start;
+				Level1 start;
+				game.setLevel(start);
 			}
 		}
-	} else if (argc > 0){
-		if (argv[1] == "-text"){
-			game.textmode = true; //text only 
+	} else if (argc > 1){
+		string argv1 = argv[1];
+		if (argv1 == "-text"){
+			game.setTextMode(true); //text only 
 		}
 	}
     // lef, ri, do, cl, co, dr, levelu, leveld, n, ra, 
@@ -58,10 +69,11 @@ int main(int argc, char *argv[]){
     // then check individual lef, levelu, leveld.
 	try {
 		while(true){
-			if (game.seq){
-				while (game.seqind < seq.size()){
-					cmd = seq[seqind];
-					seqind += 1; 
+			if (game.getSeq()){
+				int size = seq.size();
+				while (game.getSeqInd() < size){
+					cmd = seq[game.getSeqInd()];
+					game.incrementSeqInd(); 
 				}
 			} else {
 				cin >> cmd;
@@ -70,79 +82,80 @@ int main(int argc, char *argv[]){
 			int rep = 0;
 			bool gravity = false;
 			bool highLevel = false;
-			if (game.getLevel().num >= 3){
+			if (game.getLevel().num() >= 3){
 				highLevel = true;
 			}
 			Command command;
-			command.g = game;
-			command.level = game.getLevel();
+			command.setGrid(&game); 
+			command.setLevel(&game.getLevel());
 			while (isdigit(cmd[i])){
 				rep = rep * 10 + cmd[i];
 				i += 1;
 			}
 			cmd.erase(0, i);
 			if (cmd.length() > 0){
-				string check = cmd[0];
-				if (check == "I") command.type = "I";
-				if (check == "J") command.type = "J";
-				if (check == "L") command.type = "L";
-				if (check == "Z") command.type = "Z";
-				if (check == "T") command.type = "T";
-				if (check == "O") command.type = "O";
-				if (check == "S") command.type = "S";
+				string check = cmd.substr(0,1);
+				if (check == "I") command.setType("I"); 
+				if (check == "J") command.setType("J");
+				if (check == "L") command.setType("L");
+				if (check == "Z") command.setType("Z");
+				if (check == "T") command.setType("T");
+				if (check == "O") command.setType("O");
+				if (check == "S") command.setType("S");
 				if (check == "n") {
 					if (highLevel){
 							rep = 1;
-							command.type = "n";
+							command.setType("n");
 							string file;
 							cin >> file;
-							command.file = file;
+							command.setFile(file);
 						}
 					}
 				if (check == "h"){
 					rep = 1; 
-					command.type = "h";
+					command.setType("h");
 				} 
 			} else if (cmd.length() > 1){
 				string check = cmd.substr(0, 2);
-				if (check == "se") command.type = "se";
+				if (check == "se") command.setType("se");
 				if (check == "re"){
 					rep = 1;
-					command.type = "re";
+					command.setType("re");
 				}
 				if (check == "ri"){
 					gravity = true;
-					command.type = "re";
+					command.setType("re");
 				}
 				if (check == "do"){
-					command.type = "do";
+					command.setType("do");
 				}
 				if (check == "cw"){
 					gravity = true;
-					command.type = "cw";
+					command.setType("cw");
 				}
 				if (check == "co"){
 					gravity = true;;
-					command.type = "ccw";
+					command.setType("ccw");
 				}
 				if (check == "dr"){
-					command.type = "dr";
+					command.setType("dr");
 				}
 				if (check == "ra"){
 					if (highLevel){
 						rep = 1;
-						command.type = "ra";
+						command.setType("ra");
 					}
 				}
-			} else if (cmd.length() > 2 && cmd.substr(0, 3) == lef){
-				command.type = "lef";
+			} else if (cmd.length() > 2 && cmd.substr(0, 3) == "lef"){
+				command.setType("lef");
 			} else if (cmd.length() > 5){
-				switch(cmd.substr(0, 6)){
-					case 'levelu': command.type = "levelu";
-					case 'leveld': command.type = "leveld";
+				if (cmd.substr(0, 6) == "levelu"){
+					command.setType("levelu");
+				} else if (cmd.substr(0, 6) == "leveld"){
+					command.setType("leveld");
 				}
 			} else {
-				command.type = "none";
+				command.setType("none");
 			}
 			while (rep > 0){
 				command.execute();
@@ -150,7 +163,7 @@ int main(int argc, char *argv[]){
 			}
 			if (gravity && highLevel){
 				Command heavy;
-				heavy.type = "down";
+				heavy.setType("down");
 				heavy.execute();
 			}
 		}

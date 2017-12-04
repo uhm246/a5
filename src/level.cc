@@ -8,8 +8,21 @@
 
 using namespace std;
 
+Block Level::getBlock(){
+  Block b;
+  return b;
+}
+
 int Level::num(){
   return n;
+}
+
+bool Level::isRandom(){
+  return random;
+}
+
+void Level::setRandom(bool b){
+  random = b;
 }
 
 Level0::Level0(string s): sequence_file(s), index(0){
@@ -120,31 +133,24 @@ Block Level3::getBlock(){
   int n = rand() % 9;
   if (n >= 0 && n <= 1){
     Block_S b;
-    b.toggleHeavy();
     return b;
   } else if (n >= 2 && n <= 3){
     Block_Z b;
-    b.toggleHeavy();
     return b;
   } else if (n == 4){
     Block_I b;
-    b.toggleHeavy();
     return b;
   } else if (n == 5){
     Block_J b;
-    b.toggleHeavy();
     return b;
   } else if (n == 6){
     Block_L b;
-    b.toggleHeavy();
     return b;
   } else if (n == 7){
     Block_T b;
-    b.toggleHeavy();
     return b;
   } else {
     Block_O b;
-    b.toggleHeavy();
     return b;
   }
 }

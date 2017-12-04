@@ -1,5 +1,9 @@
 #include "block.h"
 
+Block::Block(){
+	
+}
+
 Block_Single::Block_Single(){
 	type = Type::Single;
 	coords =

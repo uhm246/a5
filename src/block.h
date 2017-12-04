@@ -10,7 +10,7 @@
 	of each Block
 */
 
-class Block{
+class Block {
 	bool heavy = false;
 	int level = 0;
 	std::vector<Cell> cells;
@@ -20,7 +20,6 @@ protected:
 	std::vector<std::vector<std::vector<int>>> coords;
 public:
 	int rotation = 0; 
-	void toggleHeavy();
 	int getLevel();
 	void setLevel(int l);
 	int getSize();

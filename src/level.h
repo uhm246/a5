@@ -49,11 +49,12 @@ public:
   Block getBlock() override;
 };
 
+/*
 // every 5 blocks, a 1x1 block is dropped in to the centre column
 class Level4 : public Level{
 public:
   Level4();
   Block getBlock() override; 
 };
-
+*/
 #endif

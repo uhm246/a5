@@ -1,9 +1,27 @@
 #include "command.h"
 
+using namespace std;
+
 void redraw(Grid* g, Block *b_cur, Block *b, size_t old_r, size_t old_c, size_t r, size_t c){
 	g->voidBlock(*b_cur, old_r, old_c);
 	b_cur = b;
 	g->drawBlock(*b_cur, r, c);
+}
+
+void Command::setGrid(Grid *grid){
+	g = grid;
+}
+
+void Command::setLevel(Level *l){
+	level = l;
+}
+
+void Command::setType(string s){
+	type = s;
+}
+
+void Command::setFile(string s){
+	file = s;
 }
 
 void Command::execute(){
@@ -70,8 +88,8 @@ void Command::execute(){
 	} else if (type == "hint"){
 
 	} else if (type == "seq"){
-		g->seq = true;
-		g->seqind = 0;
+		g->setSeq(true);
+		g->setSeqInd(0);
 
 	} else if (type == "restart"){
 		g->init();
@@ -134,13 +152,15 @@ void Command::execute(){
 				}
 				case(3):
 				{
-					Level4 l;
+					//Level4 l;
+					Level1 l;
 					g->setLevel(l);
 					level = &l;
 				}
 				case(4):
 				{
-					Level4 l;
+					//Level4 l;
+					Level1 l;
 					g->setLevel(l);
 					level = &l;
 				}

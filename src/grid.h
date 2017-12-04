@@ -22,6 +22,10 @@ class Grid {
 
   int score = 0;
   int hiscore = 0;
+  int seed = 0;
+  bool textmode = false;
+  bool seq = false;
+  int seqind = 0;
   Level lev;
   void resetScore();
   void increaseScore(int i);
@@ -35,10 +39,6 @@ class Grid {
   const int width = 11;
   const int height = 18;
   
-  bool textmode = false;
-  int seed = 0;
-  bool seq = false;
-  int seqind = 0;
   ~Grid();
   
   void setObserver(Observer<State> *ob);
@@ -78,6 +78,27 @@ class Grid {
 
   // Get hi score
   int getHiScore();
+
+  // Set seed
+  void setSeed(int s);
+
+  // Set TextMode
+  void setTextMode(bool b);
+
+  // Get sequence mode
+  bool getSeq();
+
+  // Set sequnece mode
+  void setSeq(bool b);
+
+  // Get sequence index
+  int getSeqInd();
+
+  // Set sequence index
+  void setSeqInd(int n);
+
+  // Increment sequence index
+  void incrementSeqInd();
 
   //void setGraphicsDisplay();
   void setTextDisplay(TextDisplay *t);

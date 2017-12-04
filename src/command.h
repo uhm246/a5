@@ -15,9 +15,13 @@ class Command {
 	Block* b_next;
 	size_t r;
 	size_t c;
-	const std::string type;
-	const std::string file;
+	std::string type;
+	std::string file;
 public:
+	void setGrid(Grid* grid);
+	void setLevel(Level* l);
+	void setType(std::string s);
+	void setFile(std::string s);
 	void execute();
 };
 

@@ -2,6 +2,10 @@
 
 using namespace std;
 
+Grid::~Grid(){
+  
+}
+
 void Grid::clearLine(size_t r){
   for (size_t i = 0; i < this->width; i++){
     if (theGrid[r][i].getState().status == Status::Solid){
@@ -231,6 +235,36 @@ int Grid::getHiScore(){
   return hiscore;
 }
 
+void Grid::setSeed(int s){
+  seed = s;
+}
+
+void Grid::setTextMode(bool b){
+  textmode = b;
+}
+
+bool Grid::getSeq(){
+  return seq;
+}
+
+void Grid::setSeq(bool b){
+  seq = b;
+}
+
+int Grid::getSeqInd(){
+  return seqind;
+}
+
+void Grid::setSeqInd(int n){
+  seqind = n;
+}
+
+void Grid::incrementSeqInd(){
+  seqind++;
+}
+
 void Grid::setTextDisplay(TextDisplay *t){
   td = t;
 }
+
+
