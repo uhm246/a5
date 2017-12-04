@@ -26,8 +26,6 @@ void Command::setFile(string s){
 void Command::execute(){
 // I, J, L, Z, T, O, S, norandom, hint, seq, restart
 // right, down, cw, ccw, drop, left, levelup, level down, random
-	size_t old_r = r;
-	size_t old_c = c;
 	
 	// Block spawn commands
 	if (type == "I"){
@@ -80,63 +78,80 @@ void Command::execute(){
 		this->c = 0;
 		g->drawBlock(b_cur, r, c);
 
-	} else if (type == "norandom"){
+	} 
+
+	else if (type == "norandom"){
 		level->setRandom(false);
 
-	} else if (type == "hint"){
+	} 
 
-	} else if (type == "seq"){
+	else if (type == "hint"){
+
+	} 
+
+	else if (type == "seq"){
 		g->setSeq(true);
 		g->setSeqInd(0);
 
-	} else if (type == "restart"){
-		g->init();
+	} 
 
-	} else if (type == "right"){
-		cout << "START RIGHT " << endl;
+	else if (type == "restart"){
+		g->init();
+	} 
+
+	else if (type == "right"){
 		if (g->verifyMove(b_cur, Move::Right, r, c)){
-			cout << "GO RIGHT" << endl;
 			g->voidBlock(b_cur, r, c);
 			c += 1;
 			g->drawBlock(b_cur, r, c);
 		} 
-		cout << "END RIGHT" << endl;
-	} else if (type == "down"){
-		if (g->verifyMove(b_cur, Move::Down, r, c)){
-				r -= 1;
-			}
-		//redraw(g, b_cur, b_cur, old_r, old_c, r, c);
-		
-	} else if (type == "cw"){
-		if (g->verifyRotate(b_cur, Rotate::Clockwise, r, c)){
-				//Block* b = b_cur.clockwise(b_cur);
-				//redraw(g, b_cur, b, old_r, old_c, r, c);	
-			}
+	} 
 
-	} else if (type == "ccw"){
-		if (g->verifyRotate(b_cur, Rotate::Counterclockwise, r, c)){
-				//Block* b = b_cur.counterclockwise(b_cur);
-				//redraw(g, b_cur, b, old_r, old_c, r, c);
-			}
-		
-	} else if (type == "drop"){
-		while (g->verifyMove(b_cur, Move::Down, r, c )){
-				r -= 1;
-			}
-			g->setBlock(b_cur, r, c);
-			g->voidBlock(b_cur, old_r, old_c);
-			g->drawBlock(b_cur, r, c);
-			//b_cur = b_next;
-			Block next = level->getBlock();	
-			//b_next = &next;	
-
-	} else if (type == "left"){
+	else if (type == "left"){
+		cout << "LEFT" << endl;
 		if (g->verifyMove(b_cur, Move::Left, r, c)){
-				c -= 1;
-			}
-		//redraw(g, b_cur, b_cur, old_r, old_c, r, c);	
+			g->voidBlock(b_cur, r, c);
+			c -= 1;
+			g->drawBlock(b_cur, r, c);
+		} 
+	} 
 
-	} else if (type == "levelup"){
+	else if (type == "down"){
+		if (g->verifyMove(b_cur, Move::Down, r, c)){
+			g->voidBlock(b_cur, r, c);
+			r -= 1;
+			g->drawBlock(b_cur, r, c);
+		} 
+	} 
+
+	else if (type == "cw"){
+		if (g->verifyRotate(b_cur, Rotate::Clockwise, r, c)){
+			g->voidBlock(b_cur, r, c);
+			b_cur = b_cur.clockwise(b_cur);
+			g->drawBlock(b_cur, r, c);
+		}
+	} 
+
+	else if (type == "ccw"){
+		if (g->verifyRotate(b_cur, Rotate::Counterclockwise, r, c)){
+			g->voidBlock(b_cur, r, c);
+			b_cur = b_cur.clockwise(b_cur);
+			g->drawBlock(b_cur, r, c);
+		}
+	} 
+
+	else if (type == "drop"){
+		size_t old_r = r;
+		size_t old_c = c;
+ 		while (g->verifyMove(b_cur, Move::Down, r, c )){
+			r -= 1;
+		}
+		g->voidBlock(b_cur, old_r, old_c);
+		g->setBlock(b_cur, r, c);
+		b_cur = b_next;
+	} 
+
+	else if (type == "levelup"){
 		switch(level->num()){
 				case(0):
 				{
@@ -171,8 +186,9 @@ void Command::execute(){
 					level = &l;
 				}
 			}		
+	} 
 
-	} else if (type == "leveldown"){
+	else if (type == "leveldown"){
 		switch(level->num()){
 				case(1):
 				{
@@ -205,11 +221,13 @@ void Command::execute(){
 					level = &l;
 				}
 			}
+	} 
 
-	} else if (type == "random"){
+	else if (type == "random"){
 		level->setRandom(true);
+	} 
 
-	} else if (type == "none"){
+	else if (type == "none"){
 		// None
 	}
 }

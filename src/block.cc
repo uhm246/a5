@@ -1,5 +1,7 @@
 #include "block.h"
 
+using namespace std;
+
 Block::Block(){
 
 }
@@ -121,13 +123,13 @@ int Block::cellCount() {
 	return cells.size();
 }
 
-Block* Block::clockwise(Block *b) {
-	b->rotation = (b->rotation + 1) % 4;
+Block Block::clockwise(Block b) {
+	b.rotation = (b.rotation + 1) % 4;
 	return b;
 }
 
-Block* Block::counterclockwise(Block *b) {
-	b->rotation = (b->rotation - 1) % 4;
+Block Block::counterclockwise(Block b) {
+	b.rotation = (b.rotation - 1) % 4;
 	return b;
 }
 
@@ -148,12 +150,12 @@ std::vector<std::vector<int>> Block::getRotatedCoords(size_t r, size_t c, Rotate
 		newCoords = this->coords[rotateIndex];
 	}
 	else {
-		rotateIndex = (rotateIndex - 1) % 4;
+		rotateIndex = ((rotateIndex - 1) + 4) % 4;
 		newCoords = this->coords[rotateIndex];
 	} 
 	for (int i = 0; i < 4; i++) {
-		newCoords[i][0] += c;
-		newCoords[i][1] += r;
+		newCoords[i][0] += r;
+		newCoords[i][1] += c;
 	}
 	return newCoords;
 }

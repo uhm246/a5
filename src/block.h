@@ -1,5 +1,6 @@
 #ifndef BLOCK_H
 #define BLOCK_H
+#include <iostream>
 #include <vector>
 #include "observer.h"
 #include "state.h"
@@ -28,8 +29,8 @@ public:
 	void removeCell(size_t r, size_t c);
 	void remapCell(size_t r1, size_t c1, size_t r2, size_t c2);
 	int cellCount();
-	Block* clockwise(Block *b);
-	Block* counterclockwise(Block *b);
+	Block clockwise(Block b);
+	Block counterclockwise(Block b);
 	std::vector<std::vector<int>> getCoords(size_t r, size_t c);
 	std::vector<std::vector<int>> getRotatedCoords(size_t r, size_t c, Rotate rot);
 	Block(); // initialize the observed cells in constructor

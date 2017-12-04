@@ -98,6 +98,7 @@ void Grid::init(){
   for (size_t i = 0; i < this->height; ++i){
     for (size_t j = 0; j < this->width; ++j){
       theGrid[i][j].attach(td);
+      theGrid[i][j].notifyObservers();
       //theGrid[i][j].attach(gd);
     }
   }
@@ -122,7 +123,7 @@ bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
       cout << "case : right" << endl;
       for (auto a : v){
         cout << "a[0]: " << a[0] << " a[1]: " << a[1] << endl;
-        if (a[1] < this->width){
+        if (a[1] < this->width - 1){
           cout << "width check pass" << endl;
           State i = theGrid[a[0]][a[1]+1].getState();
           if (i.status == Status::Solid){
@@ -153,14 +154,19 @@ bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
 }
 
 bool Grid::verifyRotate(Block b, Rotate m, size_t r, size_t c){
+  cout << "verifyRotate" << endl;
   vector<vector<int>> v = b.getRotatedCoords(r, c, m);
   for (auto a : v){
-    if (a[1] > 0 && a[0] > 0 && a[0] < this->width){
+    cout << "r: " << a[0] << " c: " << a[1] << endl;
+    if (a[0] >= 0 && a[1] >= 0 && a[1] < this->width){
+      cout << "bounds check pass" << endl;
       State i = theGrid[a[0]][a[1]].getState();
       if (i.status == Status::Solid){
+        cout << "solid test fail" << endl;
         return false;
       }
     } else {
+      cout << "bounds check fail" << endl;
       return false;
     }
   }
@@ -170,7 +176,7 @@ bool Grid::verifyRotate(Block b, Rotate m, size_t r, size_t c){
 bool Grid::verifySwitch(Block b, size_t r, size_t c){
   vector<vector<int>> v = b.getCoords(r, c);
   for (auto a : v){
-    if (a[1] > 0 && a[0] > 0 && a[0] < this->width){
+    if (a[0] > 0 && a[1] > 0 && a[1] < this->width){
       State i = theGrid[a[0]][a[1]].getState();
       if (i.status == Status::Solid){
         return false;
