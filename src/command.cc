@@ -26,8 +26,6 @@ void Command::setFile(string s){
 void Command::execute(){
 // I, J, L, Z, T, O, S, norandom, hint, seq, restart
 // right, down, cw, ccw, drop, left, levelup, level down, random
-	size_t old_r = r;
-	size_t old_c = c;
 	
 	// Block spawn commands
 	if (type == "I"){
@@ -98,7 +96,6 @@ void Command::execute(){
 	} 
 
 	else if (type == "restart"){
-		cout << "restarting" << endl;
 		g->init();
 	} 
 
@@ -144,17 +141,17 @@ void Command::execute(){
 	} 
 
 	else if (type == "drop"){
-		while (g->verifyMove(b_cur, Move::Down, r, c )){
-				r -= 1;
-			}
-			g->setBlock(b_cur, r, c);
-			g->voidBlock(b_cur, old_r, old_c);
-			g->drawBlock(b_cur, r, c);
-			//b_cur = b_next;
-			Block next = level->getBlock();	
-			//b_next = &next;	
+		size_t old_r = r;
+		size_t old_c = c;
+ 		while (g->verifyMove(b_cur, Move::Down, r, c )){
+			r -= 1;
+		}
+		g->voidBlock(b_cur, old_r, old_c);
+		g->setBlock(b_cur, r, c);
+		b_cur = b_next;
+	} 
 
-	} else if (type == "levelup"){
+	else if (type == "levelup"){
 		switch(level->num()){
 				case(0):
 				{
@@ -189,8 +186,9 @@ void Command::execute(){
 					level = &l;
 				}
 			}		
+	} 
 
-	} else if (type == "leveldown"){
+	else if (type == "leveldown"){
 		switch(level->num()){
 				case(1):
 				{
@@ -223,11 +221,13 @@ void Command::execute(){
 					level = &l;
 				}
 			}
+	} 
 
-	} else if (type == "random"){
+	else if (type == "random"){
 		level->setRandom(true);
+	} 
 
-	} else if (type == "none"){
+	else if (type == "none"){
 		// None
 	}
 }
