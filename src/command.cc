@@ -28,6 +28,8 @@ void Command::execute(){
 // right, down, cw, ccw, drop, left, levelup, level down, random
 	size_t old_r = r;
 	size_t old_c = c;
+	
+	// Block spawn commands
 	if (type == "I"){
 		Block_I b;
 		g->voidBlock(b_cur, r, c);
@@ -77,8 +79,10 @@ void Command::execute(){
 		this->r = 13;
 		this->c = 0;
 		g->drawBlock(b_cur, r, c);
+
 	} else if (type == "norandom"){
 		level->setRandom(false);
+
 	} else if (type == "hint"){
 
 	} else if (type == "seq"){
@@ -87,11 +91,16 @@ void Command::execute(){
 
 	} else if (type == "restart"){
 		g->init();
+
 	} else if (type == "right"){
+		cout << "START RIGHT " << endl;
 		if (g->verifyMove(b_cur, Move::Right, r, c)){
+			cout << "GO RIGHT" << endl;
+			g->voidBlock(b_cur, r, c);
 			c += 1;
+			g->drawBlock(b_cur, r, c);
 		} 
-		//redraw(g, b_cur, b_cur, old_r, old_c, r, c);
+		cout << "END RIGHT" << endl;
 	} else if (type == "down"){
 		if (g->verifyMove(b_cur, Move::Down, r, c)){
 				r -= 1;
@@ -103,6 +112,7 @@ void Command::execute(){
 				//Block* b = b_cur.clockwise(b_cur);
 				//redraw(g, b_cur, b, old_r, old_c, r, c);	
 			}
+
 	} else if (type == "ccw"){
 		if (g->verifyRotate(b_cur, Rotate::Counterclockwise, r, c)){
 				//Block* b = b_cur.counterclockwise(b_cur);
@@ -119,11 +129,13 @@ void Command::execute(){
 			//b_cur = b_next;
 			Block next = level->getBlock();	
 			//b_next = &next;	
+
 	} else if (type == "left"){
 		if (g->verifyMove(b_cur, Move::Left, r, c)){
 				c -= 1;
 			}
 		//redraw(g, b_cur, b_cur, old_r, old_c, r, c);	
+
 	} else if (type == "levelup"){
 		switch(level->num()){
 				case(0):
@@ -159,6 +171,7 @@ void Command::execute(){
 					level = &l;
 				}
 			}		
+
 	} else if (type == "leveldown"){
 		switch(level->num()){
 				case(1):
@@ -192,9 +205,11 @@ void Command::execute(){
 					level = &l;
 				}
 			}
+
 	} else if (type == "random"){
 		level->setRandom(true);
-	} else if (type == "none"){
 
+	} else if (type == "none"){
+		// None
 	}
 }

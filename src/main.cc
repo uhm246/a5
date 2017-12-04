@@ -118,6 +118,7 @@ int main(int argc, char *argv[]){
 
 			// First class of commands: 1 Letter
 			if (cmd.length() > 0){
+				cout << ">0" << endl;
 				string check = cmd.substr(i,i+1);
 				if (check == "I") command.setType("I"); 
 				if (check == "J") command.setType("J");
@@ -135,15 +136,16 @@ int main(int argc, char *argv[]){
 							command.setFile(file);
 						}
 					}
-
 				if (check == "h"){
 					rep = 1; 
 					command.setType("hint");
 				} 
-
-			// 2 Letter
-			} else if (cmd.length() > 1){
+			} 
+			
+			if (cmd.length() > 1){
+				cout << ">1 i: " << i << endl;
 				string check = cmd.substr(i, i+2);
+				cout << check << endl;
 				if (check == "se") command.setType("seq");
 				if (check == "re"){
 					rep = 1;
@@ -161,7 +163,7 @@ int main(int argc, char *argv[]){
 					command.setType("cw");
 				}
 				if (check == "co"){
-					gravity = true;;
+					gravity = true;
 					command.setType("ccw");
 				}
 				if (check == "dr"){
@@ -173,13 +175,13 @@ int main(int argc, char *argv[]){
 						command.setType("random");
 					}
 				}
-
-			// 3 Letter
-			} else if (cmd.length() > 2 && cmd.substr(i, i+3) == "lef"){
+			} 
+/*
+			if (cmd.length() > 2 && cmd.substr(i, i+3) == "lef"){
 				command.setType("letf");
+			} 
 
-			// Longer
-			} else if (cmd.length() > 5){
+			if (cmd.length() > 5){
 				if (cmd.substr(i, i+6) == "levelu"){
 					command.setType("levelup");
 				} else if (cmd.substr(i, i+6) == "leveld"){
@@ -188,8 +190,9 @@ int main(int argc, char *argv[]){
 			} else {
 				command.setType("none");
 			}
-
+		*/
 			while (rep > 0){
+				cout << "EXEC" << endl;
 				command.execute();
 				rep -= 1;
 			}
@@ -199,6 +202,7 @@ int main(int argc, char *argv[]){
 				heavy.setType("down");
 				heavy.execute();
 			}
+			
 		}
 	}
 	catch (ios::failure &) {}  // Any I/O failure quits

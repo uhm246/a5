@@ -108,8 +108,8 @@ bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
   switch (m){
     case Move::Down:
       for (auto a : v){
-        if (a[1] > 0){
-          State i = theGrid[a[0]][a[1]-1].getState();
+        if (a[0] > 0){
+          State i = theGrid[a[0]-1][a[1]].getState();
           if (i.status == Status::Solid){
             return false;
           }
@@ -119,21 +119,26 @@ bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
       }
       return true;
     case Move::Right:
+      cout << "case : right" << endl;
       for (auto a : v){
-        if (a[0] < this->width){
-          State i = theGrid[a[0]+1][a[1]].getState();
+        cout << "a[0]: " << a[0] << " a[1]: " << a[1] << endl;
+        if (a[1] < this->width){
+          cout << "width check pass" << endl;
+          State i = theGrid[a[0]][a[1]+1].getState();
           if (i.status == Status::Solid){
+            cout << "solid check fail" << endl;
             return false;
           }
         } else {
+          cout << "width check fail" << endl;
           return false;
         }
       }
       return true;
     case Move::Left:
       for (auto a : v){
-        if (a[0] > 0){
-          State i = theGrid[a[0]-1][a[1]].getState();
+        if (a[1] > 0){
+          State i = theGrid[a[0]][a[1]-1].getState();
           if (i.status == Status::Solid){
             return false;
           }
