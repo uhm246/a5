@@ -15,7 +15,7 @@ class Block : public Observer<State>{
 public:
 	int rotation = 0; 
 	void toggleHeavy();
-	void initCells();
+	void initCells(size_t r, size_t c);
 	void removeCell(size_t r, size_t c);
 	void remapCell(size_t r1, size_t c1, size_t r2, size_t c2);
 	int cellCount();
@@ -39,7 +39,7 @@ public:
 };
 
 class Block_I : public Block{ 
-	vector<std::vector<std::vector<int>>> coords = { { { 0, 0 },{ 1, 0 },{ 2, 0 },{ 3, 0 } },
+	std::vector<std::vector<std::vector<int>>> coords = { { { 0, 0 },{ 1, 0 },{ 2, 0 },{ 3, 0 } },
 	{ { 0, 0 },{ 0, 1 },{ 0, 2 },{ 0, 3 } },
 	{ { 0, 0 },{ 1, 0 },{ 2, 0 },{ 3, 0 } },
 	{ { 0, 0 },{ 0, 1 },{ 0, 2 },{ 0, 3 } } };
