@@ -29,13 +29,14 @@ class Grid {
   void addBlock(Block* b);
   std::vector<int> checkBlocks();
   std::vector<size_t> checkLines();
+ 
  public:
 
   const int width = 11;
   const int height = 18;
   
   bool textmode = false;
-
+  int seed = 0;
   ~Grid();
   
   void setObserver(Observer<State> *ob);
