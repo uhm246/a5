@@ -38,6 +38,7 @@ class Grid {
   bool textmode = false;
   int seed = 0;
   bool seq = false;
+  int seqind = 0;
   ~Grid();
   
   void setObserver(Observer<State> *ob);
