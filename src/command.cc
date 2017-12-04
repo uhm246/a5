@@ -23,6 +23,10 @@ void Command::setFile(string s){
 	file = s;
 }
 
+Block Command::getCur(){
+	return b_cur;
+}
+
 void Command::execute(){
 // I, J, L, Z, T, O, S, norandom, hint, seq, restart
 // right, down, cw, ccw, drop, left, levelup, level down, random
@@ -77,7 +81,6 @@ void Command::execute(){
 		this->r = 13;
 		this->c = 0;
 		g->drawBlock(b_cur, r, c);
-
 	} 
 
 	else if (type == "norandom"){
@@ -149,6 +152,7 @@ void Command::execute(){
 		g->voidBlock(b_cur, old_r, old_c);
 		g->setBlock(b_cur, r, c);
 		b_cur = b_next;
+		b_next = level->getBlock();
 	} 
 
 	else if (type == "levelup"){

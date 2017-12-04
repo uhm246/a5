@@ -26,7 +26,7 @@ class Grid {
   bool textmode = false;
   bool seq = false;
   int seqind = 0;
-  Level lev;
+  int level = 1;
   void resetScore();
   void increaseScore(int i);
   void setHiScore();
@@ -68,10 +68,10 @@ class Grid {
   int checkHoles(size_t r, size_t c, size_t width, size_t depth);
 
   // Get current level
-  Level& getLevel();
+  Level getLevel();
 
   // Set current level
-  void setLevel(Level l);
+  void setLevel(int n);
 
   // Get current score
   int getScore();

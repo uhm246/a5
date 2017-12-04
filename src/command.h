@@ -24,6 +24,7 @@ public:
 	void setType(std::string s);
 	void setFile(std::string s);
 	void execute();
+	Block getCur();
 };
 
 #endif
