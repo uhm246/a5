@@ -4,7 +4,9 @@
 #include <vector>
 #include "observer.h"
 #include "state.h"
-#include "info.h"
+#include "level.h"
+#include "grid.h"
+#include "block.h"
 
 class Command {
 	int max_level = 4;
@@ -19,6 +21,6 @@ class Command {
 	bool rand = true;
 public:
 	void execute();
-}
+};
 
 #endif
