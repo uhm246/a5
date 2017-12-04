@@ -15,7 +15,7 @@ class TextDisplay: public Observer<State> {
  public:
   TextDisplay(int level, int score, int hiScore);
 
-  void notify(Subject<State> &whoNotified) override;
+  void notify(Subject<State> &whoNotified, int level, int score, int hiscore) override;
 
   friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
 };
