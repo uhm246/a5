@@ -83,7 +83,7 @@ int main(int argc, char *argv[]){
 				cin >> cmd;
 			}
 			int i = 0;
-			int rep = 0;
+			int rep = 1;
 			bool gravity = false;
 			bool highLevel = false;
 			if (game.getLevel().num() >= 3){
@@ -92,6 +92,9 @@ int main(int argc, char *argv[]){
 			Command command;
 			command.setGrid(&game); 
 			command.setLevel(&game.getLevel());
+			if (isdigit(cmd[i])){
+				rep = 0;
+			}
 			while (isdigit(cmd[i])){
 				rep = rep * 10 + cmd[i];
 				i += 1;
