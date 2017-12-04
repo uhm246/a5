@@ -1,10 +1,17 @@
 #include "cell.h"
-#include "state.h"
 
 Cell::Cell(size_t r, size_t c): 
 r(r), c(c), status(Status::Empty), type(Type::None), block(nullptr){
   State st { r, c, status, type };
   setState(st);
+}
+
+size_t Cell::getRow(){
+  return r;
+}
+
+size_t Cell::getCol(){
+  return c;
 }
 
 void Cell::setStatus(Status s){
@@ -26,3 +33,5 @@ void Cell::setBlock(Block* b){
 Block* Cell::getBlock(){
   return block;
 }
+
+

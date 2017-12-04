@@ -100,7 +100,7 @@ void Grid::init(){
 }
 
 bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
-  vector<vector<int>>& v = b.getCoords(r, c); 
+  vector<vector<int>> v = b.getCoords(r, c); 
   switch (m){
     case Move::Down:
       for (auto a : v){
@@ -139,7 +139,7 @@ bool Grid::verifyRotate(Block b, Rotate m, size_t r, size_t c){
 }
 
 void Grid::drawBlock(Block b, size_t r, size_t c){
-  vector<vector<int>>& v = b.getCoords(r, c);
+  vector<vector<int>> v = b.getCoords(r, c);
   for (auto a : v){
     theGrid[a[0]][a[1]].setStatus(Status::Temp);
     theGrid[a[0]][a[1]].setType(b.getType());
@@ -147,14 +147,14 @@ void Grid::drawBlock(Block b, size_t r, size_t c){
 }
 
 void Grid::voidBlock(Block b, size_t r, size_t c){
-  vector<vector<int>>& v = b.getCoords(r, c);
+  vector<vector<int>> v = b.getCoords(r, c);
   for (auto a : v){
     theGrid[a[0]][a[1]].setStatus(Status::Empty);
   }
 }
 
 void Grid::setBlock(Block b, size_t r, size_t c){
-  vector<vector<int>>& v = b.getCoords(r, c);
+  vector<vector<int>> v = b.getCoords(r, c);
   for (auto a : v){
     theGrid[a[0]][a[1]].setStatus(Status::Solid);
     theGrid[a[0]][a[1]].setBlock(&b);

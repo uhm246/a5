@@ -1,6 +1,8 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 #include <vector>
+#include "observer.h"
+#include "state.h"
 #include "cell.h"
 
 /* 
@@ -8,112 +10,69 @@
 	of each Block
 */
 
-class Block : public Observer<State>{
+class Block{
 	bool heavy = false;
 	int level = 0;
-	std::vector<Cell&> cells;
+	std::vector<Cell> cells;
+protected:
+	Type type;
+	std::vector<std::vector<std::vector<int>>> coords;
 public:
 	int rotation = 0; 
 	void toggleHeavy();
+	int getLevel();
+	int getSize();
+	Type getType();
 	void initCells(size_t r, size_t c);
 	void removeCell(size_t r, size_t c);
 	void remapCell(size_t r1, size_t c1, size_t r2, size_t c2);
 	int cellCount();
 	Block* clockwise(Block *b);
 	Block* counterclockwise(Block *b);
-	std::vector<std::vector<int>> getCoords(std::vector<int> absCoord);
-	std::vector<std::vector<int>> getRotatedCoords(std::vector<int> absCoord, Rotate r);
+	std::vector<std::vector<int>> getCoords(size_t r, size_t c);
+	std::vector<std::vector<int>> getRotatedCoords(size_t r, size_t c, Rotate rot);
 	Block(); // initialize the observed cells in constructor
 			 // I need to refer back to my grid implementation
 };
 
-class Block_single : public Block {
-	std::vector<int> coords = { { { 0, 0 },{ 1, 0 },{ 2, 0 },{ 3, 0 } },
-	{ { 0, 0 },{ 0, 1 },{ 0, 2 },{ 0, 3 } },
-	{ { 0, 0 },{ 1, 0 },{ 2, 0 },{ 3, 0 } },
-	{ { 0, 0 },{ 0, 1 },{ 0, 2 },{ 0, 3 } } };
-	
-	const Colour colour = Colour::Brown;
+class Block_Single : public Block{
 public:
-	void notify(Subject<State> &whoFrom) override;
+	Block_Single();
 };
 
 class Block_I : public Block{ 
-	std::vector<std::vector<std::vector<int>>> coords = { { { 0, 0 },{ 1, 0 },{ 2, 0 },{ 3, 0 } },
-	{ { 0, 0 },{ 0, 1 },{ 0, 2 },{ 0, 3 } },
-	{ { 0, 0 },{ 1, 0 },{ 2, 0 },{ 3, 0 } },
-	{ { 0, 0 },{ 0, 1 },{ 0, 2 },{ 0, 3 } } };
-	
-	const Colour colour = Colour::LBlue;
 public:
-  void notify(Subject<State> &whoFrom) override;
+	Block_I();
 };
 
 class Block_J : public Block{
-	std::vector<std::vector<std::vector<int>>> coords = { { { 0, 0 },{ 0, 1 },{ 1, 0 },{ 2, 0 } },
-	{ { 0, 0 },{ 0, 1 },{ 0, 2 },{ 1, 2 } },
-	{ { 0, 1 },{ 1, 1 },{ 2, 1 },{ 2, 0 } },
-	{ { 0, 0 },{ 1, 0 },{ 1, 1 },{ 1, 2 } } };
-	
-	const Colour colour = Colour::DBlue;
 public:
-  void notify(Subject<State> &whoFrom) override;
+	Block_J();
 };
 
 class Block_L : public Block{
-	std::vector<std::vector<std::vector<int>>> coords = { { { 0, 0 },{ 1, 0 },{ 2, 0 },{ 2, 1 } },
-	{ { 0, 0 },{ 0, 1 },{ 0, 2 },{ 1, 0 } },
-	{ { 0, 0 },{ 0, 1 },{ 1, 1 },{ 2, 1 } },
-	{ { 0, 2 },{ 1, 2 },{ 1, 1 },{ 1, 0 } } };
-	
-	const Colour colour = Colour::Orange;
 public:
-  void notify(Subject<State> &whoFrom) override;
+	Block_L();
 };
 
 class Block_S : public Block{
-	std::vector<std::vector<std::vector<int>>> coords = { { { 0, 0 },{ 1, 0 },{ 1, 1 },{ 2, 1 } },
-	{ { 0, 1 },{ 0, 2 },{ 1, 1 },{ 1, 0 } },
-	{ { 0, 0 },{ 1, 0 },{ 1, 1 },{ 2, 1 } },
-	{ { 0, 1 },{ 0, 2 },{ 1, 1 },{ 1, 0 } } };
-	
-	const Colour colour = Colour::Green;
 public:
-  void notify(Subject<State> &whoFrom) override;
+	Block_S();
 };
 
 class Block_Z : public Block{
-	std::vector<std::vector<std::vector<int>>> coords = { { { 0, 1 },{ 1, 1 },{ 1, 0 },{ 2, 0 } },
-	{ { 0, 0 },{ 0, 1 },{ 1, 1 },{ 1, 2 } },
-	{ { 0, 1 },{ 1, 1 },{ 1, 0 },{ 2, 0 } },
-	{ { 0, 0 },{ 0, 1 },{ 1, 1 },{ 1, 2 } } };
-	
-	const Colour colour = Colour::Red;
 public:
-  void notify(Subject<State> &whoFrom) override;
+	Block_Z();
 };
 
 class Block_T : public Block{
-	std::vector<std::vector<std::vector<int>>> coords = { { { 0, 1 },{ 1, 0 },{ 1, 1 },{ 2, 1 } },
-	{ { 0, 1 },{ 1, 0 },{ 1, 1 },{ 1, 2 } },
-	{ { 0, 0 },{ 1, 0 },{ 2, 0 },{ 1, 1 } },
-	{ { 0, 0 },{ 1, 0 },{ 2, 0 },{ 1, 1 } } };
-	
-	const Colour colour = Colour::Purple;
 public:
-  void notify(Subject<State> &whoFrom) override;
+	Block_T();
 };
 
 class Block_O : public Block{
-	// Coords for Block_O are the same for each rotation
-	std::vector<std::vector<std::vector<int>>> coords = { { { 0, 0 },{ 1, 0 },{ 0, 1 },{ 1, 1 } },
-	{ { 0, 0 },{ 1, 0 },{ 0, 1 },{ 1, 1 } },
-	{ { 0, 0 },{ 1, 0 },{ 0, 1 },{ 1, 1 } },
-	{ { 0, 0 },{ 1, 0 },{ 0, 1 },{ 1, 1 } } };
-	
-	const Colour colour = Colour::Yellow;
 public:
-  void notify(Subject<State> &whoFrom) override;
+	Block_O();
 };
 
 #endif
