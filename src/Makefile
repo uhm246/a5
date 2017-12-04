@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -std=c++14 -Wall -Werror -MMD -Werror=vla
 MAKEFILE_NAME = ${firstword ${MAKEFILE_LIST}}
 
-OBJECTS = cell.o grid.o main.o textdisplay.o window.o graphicsdisplay.o
+OBJECTS = block.o cell.o command.o grid.o level.o main.o next.o textdisplay.o
 DEPENDS=${OBJECTS:.o=.d}
 	EXEC = a4q5
 
