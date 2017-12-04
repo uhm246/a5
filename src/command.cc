@@ -122,7 +122,7 @@ void Command::execute(){
 			rand = true;
 		case "none":
 	}
-	if (newblock){
+	if (redraw){
 		g.voidBlock(b_cur, old_r, old_c);
 		c = 0;
 		g.drawBlock(b, r, c);
