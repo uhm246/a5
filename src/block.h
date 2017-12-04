@@ -8,15 +8,14 @@
 	of each Block
 */
 
-// abstract class
-class Block : public Observer<Info, State>{
+class Block : public Observer<State>{
 	bool heavy = false;
 	int level = 0;
 	std::vector<Cell&> cells;
 public:
 	int rotation = 0; 
 	void toggleHeavy();
-	// getCells();
+	void initCells();
 	void removeCell(size_t r, size_t c);
 	void remapCell(size_t r1, size_t c1, size_t r2, size_t c2);
 	int cellCount();
