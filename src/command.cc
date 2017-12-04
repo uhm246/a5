@@ -1,6 +1,9 @@
 #include "command.h"
 
 
+using namespace std;
+
+
 void Command::execute(){
 // I, J, L, Z, T, O, S, norandom, hint, seq, restart
 // right, down, cw, ccw, drop, left, levelup, level down, random
