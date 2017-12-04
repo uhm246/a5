@@ -2,13 +2,14 @@
 #define TEXTDISPLAY_H
 #include <iostream>
 #include <vector>
+#include <string>
 #include "observer.h"
 #include "state.h"
 #include "info.h"
 class Cell;
 
-class TextDisplay: public Observer<Info, State> {
-  std::vector<std::vector<char>> theDisplay;
+class TextDisplay: public Observer<State> {
+  std::vector<std::vector<string>> theDisplay;
   const int gridSize;
  public:
   TextDisplay(int n);
