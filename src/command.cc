@@ -80,46 +80,70 @@ void Command::execute(){
 		this->c = 0;
 		g->drawBlock(b_cur, r, c);
 
-	} else if (type == "norandom"){
+	} 
+
+	else if (type == "norandom"){
 		level->setRandom(false);
 
-	} else if (type == "hint"){
+	} 
 
-	} else if (type == "seq"){
+	else if (type == "hint"){
+
+	} 
+
+	else if (type == "seq"){
 		g->setSeq(true);
 		g->setSeqInd(0);
 
-	} else if (type == "restart"){
-		g->init();
+	} 
 
-	} else if (type == "right"){
-		cout << "START RIGHT " << endl;
+	else if (type == "restart"){
+		cout << "restarting" << endl;
+		g->init();
+	} 
+
+	else if (type == "right"){
 		if (g->verifyMove(b_cur, Move::Right, r, c)){
-			cout << "GO RIGHT" << endl;
 			g->voidBlock(b_cur, r, c);
 			c += 1;
 			g->drawBlock(b_cur, r, c);
 		} 
-		cout << "END RIGHT" << endl;
-	} else if (type == "down"){
-		if (g->verifyMove(b_cur, Move::Down, r, c)){
-				r -= 1;
-			}
-		//redraw(g, b_cur, b_cur, old_r, old_c, r, c);
-		
-	} else if (type == "cw"){
-		if (g->verifyRotate(b_cur, Rotate::Clockwise, r, c)){
-				//Block* b = b_cur.clockwise(b_cur);
-				//redraw(g, b_cur, b, old_r, old_c, r, c);	
-			}
+	} 
 
-	} else if (type == "ccw"){
+	else if (type == "left"){
+		cout << "LEFT" << endl;
+		if (g->verifyMove(b_cur, Move::Left, r, c)){
+			g->voidBlock(b_cur, r, c);
+			c -= 1;
+			g->drawBlock(b_cur, r, c);
+		} 
+	} 
+
+	else if (type == "down"){
+		if (g->verifyMove(b_cur, Move::Down, r, c)){
+			g->voidBlock(b_cur, r, c);
+			r -= 1;
+			g->drawBlock(b_cur, r, c);
+		} 
+	} 
+
+	else if (type == "cw"){
+		if (g->verifyRotate(b_cur, Rotate::Clockwise, r, c)){
+			g->voidBlock(b_cur, r, c);
+			b_cur = b_cur.clockwise(b_cur);
+			g->drawBlock(b_cur, r, c);
+		}
+	} 
+
+	else if (type == "ccw"){
 		if (g->verifyRotate(b_cur, Rotate::Counterclockwise, r, c)){
-				//Block* b = b_cur.counterclockwise(b_cur);
-				//redraw(g, b_cur, b, old_r, old_c, r, c);
-			}
-		
-	} else if (type == "drop"){
+			g->voidBlock(b_cur, r, c);
+			b_cur = b_cur.clockwise(b_cur);
+			g->drawBlock(b_cur, r, c);
+		}
+	} 
+
+	else if (type == "drop"){
 		while (g->verifyMove(b_cur, Move::Down, r, c )){
 				r -= 1;
 			}
@@ -129,12 +153,6 @@ void Command::execute(){
 			//b_cur = b_next;
 			Block next = level->getBlock();	
 			//b_next = &next;	
-
-	} else if (type == "left"){
-		if (g->verifyMove(b_cur, Move::Left, r, c)){
-				c -= 1;
-			}
-		//redraw(g, b_cur, b_cur, old_r, old_c, r, c);	
 
 	} else if (type == "levelup"){
 		switch(level->num()){
