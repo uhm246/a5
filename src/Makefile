@@ -4,7 +4,7 @@ MAKEFILE_NAME = ${firstword ${MAKEFILE_LIST}}
 
 OBJECTS = block.o cell.o command.o grid.o level.o main.o next.o textdisplay.o
 DEPENDS=${OBJECTS:.o=.d}
-	EXEC = a4q5
+	EXEC = quadris
 
 .PHONY : clean
 
