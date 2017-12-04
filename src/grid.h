@@ -33,6 +33,8 @@ class Grid {
 
   const int width = 11;
   const int height = 18;
+  
+  bool textmode = false;
 
   ~Grid();
   
