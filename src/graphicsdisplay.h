@@ -18,6 +18,6 @@ class GraphicsDisplay: public Observer<State> {
  public:
   GraphicsDisplay(int level, int score, int hiScore);
 
-  void notify(Subject<State> &whoNotified) override;
+  void notify(Subject<State> &whoNotified, int level, int score, int hiScore) override;
 };
 #endif
