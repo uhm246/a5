@@ -3,7 +3,8 @@
 
 using namespace std;
 
-TextDisplay::TextDisplay(int level, int score, int hiScore) {
+TextDisplay::TextDisplay(int level, int score, int hiScore): 
+level(level), score(score), hiscore(hiScore) {
 	theDisplay.emplace_back("Level:    ");
 	theDisplay.emplace_back(std::to_string(level));
 	theDisplay.emplace_back("Score:    ");
@@ -23,13 +24,13 @@ TextDisplay::TextDisplay(int level, int score, int hiScore) {
 	}
 }
 
-void TextDisplay::notify(Subject<State> &whoNotified, int level, int score, int hiscore) {
+void TextDisplay::notify(Subject<State> &whoFrom) {
 	// Update level, score, and hiscore
 	theDisplay[1] = (std::to_string(level));
 	theDisplay[3] = (std::to_string(score));
 	theDisplay[5] = (std::to_string(hiscore));
 
-	State s = whoNotified.getState();
+	State s = whoFrom.getState();
 	BlockType blocktype = s.blocktype;
 	Type cellType = s.type;
 	size_t col = s.c;

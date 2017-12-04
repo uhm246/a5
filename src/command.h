@@ -9,7 +9,6 @@
 #include "block.h"
 
 class Command {
-	int max_level = 4;
 	Level* level;
 	Grid* g;
 	Block* b_cur;

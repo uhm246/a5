@@ -12,10 +12,13 @@ class TextDisplay: public Observer<State> {
   std::vector<std::string> theDisplay;
   const int gridWidth = 11;
   const int gridHeight = 18;
+  int level;
+  int score;
+  int hiscore;
  public:
   TextDisplay(int level, int score, int hiScore);
 
-  void notify(Subject<State> &whoNotified, int level, int score, int hiscore) override;
+  void notify(Subject<State> &whoFrom) override;
 
   friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
 };

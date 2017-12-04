@@ -9,9 +9,12 @@
 class Level{
 protected:
   int n;
+  bool random = false;
 public:
   virtual Block getBlock();
   int num();
+  bool isRandom();
+  void setRandom(bool b);
 };
 
 // Level 0 follows the sequence defined in sequence.txt

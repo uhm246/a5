@@ -12,61 +12,61 @@ void Command::execute(){
 	size_t old_r = r;
 	size_t old_c = c;
 	if (type == "I"){
-			Block_I *b;
-			b->initCells(14,0);
+			Block_I b;
+			b.initCells(14,0);
 			old_r = r;
 			old_c = c;
 			r = 14;
 			c = 0;
-			redraw(g, b_cur, b, old_r, old_c, r, c);
+			redraw(g, b_cur, &b, old_r, old_c, r, c);
 	} else if (type == "J"){
-		Block_J *b;
-		b->initCells(13,0);
+		Block_J b;
+		b.initCells(13,0);
 		r = 13;
 		c = 0;
-		redraw(g, b_cur, b, old_r, old_c, r, c);
+		redraw(g, b_cur, &b, old_r, old_c, r, c);
 	} else if (type == "L"){
-		Block_L *b;
-		b->initCells(13,0);
+		Block_L b;
+		b.initCells(13,0);
 		old_r = r;
 		old_c = c;
 		r = 13;
 		c = 0;
-		redraw(g, b_cur, b, old_r, old_c, r, c);
+		redraw(g, b_cur, &b, old_r, old_c, r, c);
 	} else if (type == "Z"){
-		Block_Z *b;
-		b->initCells(13,0);
+		Block_Z b;
+		b.initCells(13,0);
 		old_r = r;
 		old_c = c;
 		r = 13;
 		c = 0;
-		redraw(g, b_cur, b, old_r, old_c, r, c);
+		redraw(g, b_cur, &b, old_r, old_c, r, c);
 	} else if (type == "T"){
-		Block_T *b;
-		b->initCells(13,0);
+		Block_T b;
+		b.initCells(13,0);
 		old_r = r;
 		old_c = c;
 		r = 13;
 		c = 0;
-		redraw(g, b_cur, b, old_r, old_c, r, c);
+		redraw(g, b_cur, &b, old_r, old_c, r, c);
 	} else if (type == "O"){
-		Block_O *b;
-		b->initCells(13,0);
+		Block_O b;
+		b.initCells(13,0);
 		old_r = r;
 		old_c = c;
 		r = 13;
 		c = 0;
-		redraw(g, b_cur, b, old_r, old_c, r, c);
+		redraw(g, b_cur, &b, old_r, old_c, r, c);
 	} else if (type == "S"){
-		Block_S *b;
-		b->initCells(13,0);
+		Block_S b;
+		b.initCells(13,0);
 		old_r = r;
 		old_c = c;
 		r = 13;
 		c = 0;
-		redraw(g, b_cur, b, old_r, old_c, r, c);
+		redraw(g, b_cur, &b, old_r, old_c, r, c);
 	} else if (type == "norandom"){
-		level->random = false;
+		level->setRandom(false);
 	} else if (type == "hint"){
 
 	} else if (type == "seq"){
@@ -94,7 +94,7 @@ void Command::execute(){
 	} else if (type == "ccw"){
 		if (g->verifyRotate(*b_cur, Rotate::Counterclockwise, r, c)){
 				Block* b = b_cur->counterclockwise(b_cur);
-				redraw(g, b_cur, b_cur, old_r, old_c, r, c);
+				redraw(g, b_cur, b, old_r, old_c, r, c);
 			}
 		
 	} else if (type == "drop"){
@@ -113,7 +113,7 @@ void Command::execute(){
 			}
 		redraw(g, b_cur, b_cur, old_r, old_c, r, c);	
 	} else if (type == "levelu"){
-		switch(level->num){
+		switch(level->num()){
 				case(0):
 				{
 					Level1 l;
@@ -146,10 +146,10 @@ void Command::execute(){
 				}
 			}		
 	} else if (type == "leveld"){
-		switch(level->num){
+		switch(level->num()){
 				case(1):
 				{
-					Level0 l;
+					Level0 l { "sequence" };
 					g->setLevel(l);
 					level = &l;
 				}
@@ -161,9 +161,9 @@ void Command::execute(){
 				}
 				case(3):
 				{
-					Level2* l;
-					g->setLevel(*l);
-					level = l;
+					Level2 l;
+					g->setLevel(l);
+					level = &l;
 				}
 				case(4):
 				{
@@ -173,13 +173,13 @@ void Command::execute(){
 				}
 				case(0):
 				{
-					Level0 l;
+					Level0 l { "sequence" };
 					g->setLevel(l);
 					level = &l;
 				}
 			}
 	} else if (type == "ra"){
-		level->random = true;
+		level->setRandom(true);
 	} else if (type == "none"){
 
 	}
