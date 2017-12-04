@@ -4,7 +4,6 @@
 #include "observer.h"
 #include "subject.h"
 #include "block.h"
-#include "info.h"
 #include "state.h"
 
 class Level{
@@ -49,7 +48,7 @@ public:
 class Level4 : public Level, public Observer<State>{
   int num = 4;
 public:
-  void notify(Subject<Info, State> &whoFrom) override;
+  void notify(Subject<State> &whoFrom) override;
   Block getBlock() override; 
 };
 
