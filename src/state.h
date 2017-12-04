@@ -14,6 +14,7 @@ struct State {
   size_t c;
   Status status;
   Type type;
+  BlockType blocktype;
 };
 
 #endif

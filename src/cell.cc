@@ -3,7 +3,7 @@
 
 Cell::Cell(size_t r, size_t c): 
 r(r), c(c), status(Status::Empty), type(Type::None), block(nullptr){
-  State st { r, c, status, type };
+  State st { r, c, status, type, blocktype };
   setState(st);
 }
 
@@ -15,8 +15,8 @@ size_t Cell::getCol(){
   return c;
 }
 
-BlockType Cell::getBlockType() {
-	return blocktype;
+void Cell::setNext(){
+  blocktype = BlockType::Next;
 }
 
 Type Cell::getType() {
@@ -25,13 +25,13 @@ Type Cell::getType() {
 
 void Cell::setStatus(Status s){
   status = s;
-  State st { r, c, status, type };
+  State st { r, c, status, type, blocktype };
   setState(st);
 }
 
 void Cell::setType(Type t){
   type = t;
-  State st { r, c, status, type };
+  State st { r, c, status, type, blocktype };
   setState(st);
   notifyObservers();
 }

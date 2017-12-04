@@ -4,8 +4,8 @@
 #include <vector>
 #include <string>
 #include "observer.h"
+#include "subject.h"
 #include "state.h"
-#include "info.h"
 class Cell;
 
 class TextDisplay: public Observer<State> {

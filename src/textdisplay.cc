@@ -1,6 +1,8 @@
 #include <iostream>
 #include "textdisplay.h"
 
+using namespace std;
+
 TextDisplay::TextDisplay(int level, int score, int hiScore) {
 	theDisplay.emplace_back("Level:    ");
 	theDisplay.emplace_back(std::to_string(level));
@@ -22,10 +24,11 @@ TextDisplay::TextDisplay(int level, int score, int hiScore) {
 }
 
 void TextDisplay::notify(Subject<State> &whoNotified) {
-	BlockType blocktype = whoNotified.getBlockType();
-	Type cellType = whoNotified.getType();
-	size_t col = whoNotified.getCol();
-	size_t row = whoNotified.getRow();
+	State s = whoNotified.getState();
+	BlockType blocktype = s.blocktype;
+	Type cellType = s.type;
+	size_t col = s.c;
+	size_t row = s.r;
 
 	// Displaying blocks in the gameplay grid
 	if (blocktype == BlockType::Current) {
