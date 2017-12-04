@@ -16,6 +16,7 @@ class Block{
 	std::vector<Cell> cells;
 protected:
 	Type type;
+	BlockType blocktype;
 	std::vector<std::vector<std::vector<int>>> coords;
 public:
 	int rotation = 0; 

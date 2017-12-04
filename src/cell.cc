@@ -14,6 +14,10 @@ size_t Cell::getCol(){
   return c;
 }
 
+BlockType Cell::getBlockType() {
+	return blocktype;
+}
+
 Type Cell::getType() {
 	return type;
 }

@@ -16,42 +16,73 @@ TextDisplay::TextDisplay(int level, int score, int hiScore) {
 	theDisplay.emplace_back("-----------");
 	theDisplay.emplace_back("Next:");
 	// Creates space for next block
-	for (int j = 0; j < (2 * gridWidth); j++) {
+	for (int j = 0; j < (2 * gridWidth); j++) { // 4 or 11 for gridWidth
 		theDisplay.emplace_back(" ");
 	}
 }
 
 void TextDisplay::notify(Subject<State> &whoNotified) {
+	BlockType blocktype = whoNotified.getBlockType();
 	Type cellType = whoNotified.getType();
 	size_t col = whoNotified.getCol();
 	size_t row = whoNotified.getRow();
-	if (cellType == Type::I) {
-		theDisplay[(row * gridWidth) + col + 7] = "I";
+
+	// Displaying blocks in the gameplay grid
+	if (blocktype == BlockType::Current) {
+		if (cellType == Type::I) {
+			theDisplay[(row * gridWidth) + col + 7] = "I";
+		}
+		else if (cellType == Type::J) {
+			theDisplay[(row * gridWidth) + col + 7] = "J";
+		}
+		else if (cellType == Type::L) {
+			theDisplay[(row * gridWidth) + col + 7] = "L";
+		}
+		else if (cellType == Type::S) {
+			theDisplay[(row * gridWidth) + col + 7] = "S";
+		}
+		else if (cellType == Type::Z) {
+			theDisplay[(row * gridWidth) + col + 7] = "Z";
+		}
+		else if (cellType == Type::T) {
+			theDisplay[(row * gridWidth) + col + 7] = "T";
+		}
+		else if (cellType == Type::O) {
+			theDisplay[(row * gridWidth) + col + 7] = "O";
+		}
+		else if (cellType == Type::Single) {
+			theDisplay[(row * gridWidth) + col + 7] = "B";
+		}
+		else {
+			theDisplay[(row * gridWidth) + col + 7] = " ";
+		}
 	}
-	else if (cellType == Type::J) {
-		theDisplay[(row * gridWidth) + col + 7] = "J";
-	} 
-	else if (cellType == Type::L) {
-		theDisplay[(row * gridWidth) + col + 7] = "L";
-	}
-	else if (cellType == Type::S) {
-		theDisplay[(row * gridWidth) + col + 7] = "S";
-	}
-	else if (cellType == Type::Z) {
-		theDisplay[(row * gridWidth) + col + 7] = "Z";
-	}
-	else if (cellType == Type::T) {
-		theDisplay[(row * gridWidth) + col + 7] = "T";
-	}
-	else if (cellType == Type::O) {
-		theDisplay[(row * gridWidth) + col + 7] = "O";
-	}
-	else if (cellType == Type::Single) {
-		theDisplay[(row * gridWidth) + col + 7] = "B";
-	}
+
+	// Displaying next block
 	else {
-		theDisplay[(row * gridWidth) + col + 7] = " ";
+		if (cellType == Type::I) { 
+			theDisplay[(row * gridWidth) + col + 200] = "I";
+		}
+		else if (cellType == Type::J) {
+			theDisplay[(row * gridWidth) + col + 200] = "J";
+		}
+		else if (cellType == Type::L) {
+			theDisplay[(row * gridWidth) + col + 200] = "L";
+		}
+		else if (cellType == Type::S) {
+			theDisplay[(row * gridWidth) + col + 200] = "S";
+		}
+		else if (cellType == Type::Z) {
+			theDisplay[(row * gridWidth) + col + 200] = "Z";
+		}
+		else if (cellType == Type::T) {
+			theDisplay[(row * gridWidth) + col + 200] = "T";
+		}
+		else {
+			theDisplay[(row * gridWidth) + col + 200] = "O";
+		}
 	}
+	
 }
 
 std::ostream &operator<<(std::ostream &out, const TextDisplay &td) {
