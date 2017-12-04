@@ -5,13 +5,13 @@ using namespace std;
 void Grid::clearLine(size_t r){
   for (size_t i = 0; i < this->width; i++){
     if (theGrid[r][i].getState().status == Status::Solid){
-      theGrid[r][i].getBlock().removeCell(r, i);
+      theGrid[r][i].getBlock()->removeCell(r, i);
     }
     theGrid[r][i].setStatus(Status::Empty);
   }
   for (size_t i = r+1; i < this->height - 1; i++){ //maybe adjust more
     for (size_t j = 0; j < this->width; j++){
-      Info aboveinfo = theGrid[i+1][j].getState();
+      State aboveinfo = theGrid[i+1][j].getState();
       Status abovestatus = aboveinfo.status;
       Type abovetype = aboveinfo.type;
       if (abovestatus != Status::Temp){
@@ -44,15 +44,15 @@ void Grid::increaseScore(int i){
   score += i;
 }
 
-void Grid::addBlock(Block& b){
+void Grid::addBlock(Block* b){
   blocks.push_back(b);
 }
 
 vector<int> Grid::checkBlocks(){
   vector<int> idxs;
   for (int i = 0; i < blocks.size(); i++){
-    if (blocks[i].getSize() == 0){
-      int l = blocks[i].getLevel();
+    if (blocks[i]->getSize() == 0){
+      int l = blocks[i]->getLevel();
       increaseScore((l + 1) * (l + 1));
       idxs.push_back(i);
     }
@@ -62,7 +62,7 @@ vector<int> Grid::checkBlocks(){
   }
 }
 
-bool checkLine(vector<Cell>& v, r){
+bool checkLine(vector<Cell>& v){
   for (auto a : v){
     if (a.getState().status != Status::Solid){
       return false;
@@ -81,10 +81,8 @@ vector<size_t> Grid::checkLines(){
 }
 
 void Grid::init(){
-  td = new TextDisplay();
-  gd = new GraphicsDisplay();
-  occupied = 4;
-  capacity = n*n;
+  //td = new TextDisplay();
+  //gd = new GraphicsDisplay();
   resetScore();
   theGrid.clear();
   theGrid.resize(this->height);
@@ -95,19 +93,19 @@ void Grid::init(){
   }
   for (size_t i = 0; i < this->height; ++i){
     for (size_t j = 0; j < this->width; ++j){
-      theGrid[i][j].attach(td);
-      theGrid[i][j].attach(gd);
+      //theGrid[i][j].attach(td);
+      //theGrid[i][j].attach(gd);
     }
   }
 }
 
 bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
   vector<vector<int>>& v = b.getCoords(r, c); 
-  switch m:
+  switch (m){
     case Move::Down:
       for (auto a : v){
         if (a[1] > 0){
-          Info i = theGrid[a[0]][a[1]-1].getState();
+          State i = theGrid[a[0]][a[1]-1].getState();
           return i.status != Status::Solid;
         } else {
           return false;
@@ -116,7 +114,7 @@ bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
     case Move::Right:
       for (auto a : v){
         if (a[0] < this->width){
-          Info i = theGrid[a[0]+1][a[1]];
+          State i = theGrid[a[0]+1][a[1]].getState();
           return i.status != Status::Solid;
         } else {
           return false;
@@ -125,7 +123,7 @@ bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
     case Move::Left:
       for (auto a : v){
         if (a[0] > 0){
-          Info i = theGrid[a[0]-1][a[1]];
+          State i = theGrid[a[0]-1][a[1]].getState();
           return i.status != Status::Solid;
         } else {
           return false;
@@ -133,9 +131,10 @@ bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
       }
     default: 
       return false;
+    }
 }
 
-bool Grid::verifyRotate(Block b, Rotate r, size_t r, size_t c){
+bool Grid::verifyRotate(Block b, Rotate m, size_t r, size_t c){
 
 }
 
@@ -158,9 +157,10 @@ void Grid::setBlock(Block b, size_t r, size_t c){
   vector<vector<int>>& v = b.getCoords(r, c);
   for (auto a : v){
     theGrid[a[0]][a[1]].setStatus(Status::Solid);
+    theGrid[a[0]][a[1]].setBlock(&b);
   }
   clearLines();
-  addBlock(b);
+  addBlock(&b);
 }
 
 Level& Grid::getLevel(){

@@ -11,10 +11,10 @@
 class Grid {
   
   std::vector<std::vector<Cell>> theGrid;
-  std::vector<Block&> blocks;
-  TextDisplay *td = nullptr;
-  GraphicsDisplay *gd = nullptr;
-  Observer<Info, State> *ob = nullptr; 
+  std::vector<Block*> blocks;
+  //TextDisplay *td = nullptr;
+  //GraphicsDisplay *gd = nullptr;
+  Observer<State> *ob = nullptr; 
   
   void clearLine(size_t r);
   void clearLines();
@@ -25,17 +25,17 @@ class Grid {
   void resetScore();
   void increaseScore(int i);
   void setHiScore();
-  void addBlock(Block& b);
+  void addBlock(Block* b);
   std::vector<int> checkBlocks();
   std::vector<size_t> checkLines();
  public:
 
-  const width = 11;
-  const height = 18;
+  const int width = 11;
+  const int height = 18;
 
   ~Grid();
   
-  void setObserver(Observer<Info, State> *ob);
+  void setObserver(Observer<State> *ob);
 
   // Initialize board, also clears it
   void init();
