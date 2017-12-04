@@ -9,12 +9,12 @@
 #include "block.h"
 
 class Command {
-	Level* level;
-	Grid* g;
-	Block* b_cur;
-	Block* b_next;
-	size_t r;
-	size_t c;
+	Level* level = nullptr;
+	Grid* g = nullptr;
+	Block* b_cur = nullptr;
+	Block* b_next = nullptr;
+	size_t r = 0;
+	size_t c = 0;
 	std::string type;
 	std::string file;
 public:

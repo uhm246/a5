@@ -2,9 +2,15 @@
 
 using namespace std;
 
-void redraw(Grid* g, Block *b_cur, Block *b, size_t old_r, size_t old_c, size_t r, size_t c){
+void redraw(Grid* g, Block *b_cur, Block *b, 
+            size_t old_r, size_t old_c, size_t r, size_t c){
+	if (b_cur == nullptr){
+		b_cur = new Block_I();
+	}
+	cout << "VOID" << endl;
 	g->voidBlock(*b_cur, old_r, old_c);
 	b_cur = b;
+	cout << "DRAW" << endl;
 	g->drawBlock(*b_cur, r, c);
 }
 
@@ -31,7 +37,7 @@ void Command::execute(){
 	size_t old_c = c;
 	if (type == "I"){
 			Block_I b;
-			b.initCells(14,0);
+			//b.initCells(14,0);
 			old_r = r;
 			old_c = c;
 			r = 14;
@@ -39,13 +45,15 @@ void Command::execute(){
 			redraw(g, b_cur, &b, old_r, old_c, r, c);
 	} else if (type == "J"){
 		Block_J b;
-		b.initCells(13,0);
+		//b.initCells(13,0);
+		old_r = r;
+		old_c = c;
 		r = 13;
 		c = 0;
 		redraw(g, b_cur, &b, old_r, old_c, r, c);
 	} else if (type == "L"){
 		Block_L b;
-		b.initCells(13,0);
+		//b.initCells(13,0);
 		old_r = r;
 		old_c = c;
 		r = 13;
@@ -53,7 +61,7 @@ void Command::execute(){
 		redraw(g, b_cur, &b, old_r, old_c, r, c);
 	} else if (type == "Z"){
 		Block_Z b;
-		b.initCells(13,0);
+		//b.initCells(13,0);
 		old_r = r;
 		old_c = c;
 		r = 13;
@@ -61,7 +69,7 @@ void Command::execute(){
 		redraw(g, b_cur, &b, old_r, old_c, r, c);
 	} else if (type == "T"){
 		Block_T b;
-		b.initCells(13,0);
+		//b.initCells(13,0);
 		old_r = r;
 		old_c = c;
 		r = 13;
@@ -69,7 +77,7 @@ void Command::execute(){
 		redraw(g, b_cur, &b, old_r, old_c, r, c);
 	} else if (type == "O"){
 		Block_O b;
-		b.initCells(13,0);
+		//b.initCells(13,0);
 		old_r = r;
 		old_c = c;
 		r = 13;
@@ -77,7 +85,7 @@ void Command::execute(){
 		redraw(g, b_cur, &b, old_r, old_c, r, c);
 	} else if (type == "S"){
 		Block_S b;
-		b.initCells(13,0);
+		//b.initCells(13,0);
 		old_r = r;
 		old_c = c;
 		r = 13;

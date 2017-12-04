@@ -178,16 +178,20 @@ bool Grid::verifySwitch(Block b, size_t r, size_t c){
 }
 
 void Grid::drawBlock(Block b, size_t r, size_t c){
+  cout << "getCoords (drawBlock)" << endl;
   vector<vector<int>> v = b.getCoords(r, c);
   for (auto a : v){
+    cout << "r: " << a[0] << " c: " << a[1] << endl;
     theGrid[a[0]][a[1]].setStatus(Status::Temp);
     theGrid[a[0]][a[1]].setType(b.getType());
   }
 }
 
 void Grid::voidBlock(Block b, size_t r, size_t c){
+  cout << "getCoords (voidBlock)" << endl;
   vector<vector<int>> v = b.getCoords(r, c);
   for (auto a : v){
+    cout << "r: " << a[0] << " c: " << a[1] << endl;
     theGrid[a[0]][a[1]].setStatus(Status::Empty);
   }
 }

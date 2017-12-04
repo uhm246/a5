@@ -1,7 +1,7 @@
 #include "block.h"
 
 Block::Block(){
-	
+
 }
 
 Block_Single::Block_Single(){
@@ -134,8 +134,8 @@ Block* Block::counterclockwise(Block *b) {
 std::vector<std::vector<int>> Block::getCoords(size_t r, size_t c) {
 	std::vector<std::vector<int>> newCoords = this->coords[this->rotation];
 	for (int i = 0; i < 4; i++) {
-		newCoords[i][0] += c;
-		newCoords[i][1] += r;
+		newCoords[i][0] += r;
+		newCoords[i][1] += c;
 	}
 	return newCoords;
 }

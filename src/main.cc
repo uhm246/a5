@@ -22,7 +22,6 @@ int main(int argc, char *argv[]){
 	TextDisplay* td = new TextDisplay(0,0,0);
 	game.setTextDisplay(td);
 	game.init(); // initialize game
-	cout << game;
 	if (argc > 2){
 		string argv1 = argv[1];
 		if (argv1 == "-seed"){
@@ -71,6 +70,7 @@ int main(int argc, char *argv[]){
     // switch for the single letter and double letter cmds
     // then check individual lef, levelu, leveld.
 	try {
+		Command command;
 		while(true){
 			cout << game;
 			if (game.getSeq()){
@@ -89,7 +89,6 @@ int main(int argc, char *argv[]){
 			if (game.getLevel().num() >= 3){
 				highLevel = true;
 			}
-			Command command;
 			command.setGrid(&game); 
 			command.setLevel(&game.getLevel());
 			if (isdigit(cmd[i])){

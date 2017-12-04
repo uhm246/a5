@@ -27,6 +27,7 @@ void Cell::setStatus(Status s){
   status = s;
   State st { r, c, status, type, blocktype };
   setState(st);
+  notifyObservers();
 }
 
 void Cell::setType(Type t){
