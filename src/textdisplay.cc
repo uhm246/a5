@@ -3,117 +3,62 @@
 
 using namespace std;
 
-TextDisplay::TextDisplay(int level, int score, int hiScore): 
-level(level), score(score), hiscore(hiScore) {
-	theDisplay.emplace_back("Level:    ");
-	theDisplay.emplace_back(std::to_string(level));
-	theDisplay.emplace_back("Score:    ");
-	theDisplay.emplace_back(std::to_string(score));
-	theDisplay.emplace_back("Hi Score:    ");
-	theDisplay.emplace_back(std::to_string(hiScore));
-	theDisplay.emplace_back("-----------");
-	// Creates space for main gameplay
-	for (int j = 0; j < (gridHeight * gridWidth); j++) {
-		theDisplay.emplace_back(" ");
-	}
-	theDisplay.emplace_back("-----------");
-	theDisplay.emplace_back("Next:");
-	// Creates space for next block
-	for (int j = 0; j < (2 * gridWidth); j++) { // 4 or 11 for gridWidth
-		theDisplay.emplace_back(" ");
-	}
+TextDisplay::TextDisplay(Score* score, Level* level): 
+score(score), level(level){
+  theDisplay.resize(18);
+  for (int i = 0; i < 18; ++i){
+    for (int j = 0; j < 11; ++j){
+      theDisplay[i].push_back(' ');
+    }
+  }
 }
 
-void TextDisplay::notify(Subject<State> &whoFrom) {
-	// Update level, score, and hiscore
-	theDisplay[1] = (std::to_string(level));
-	theDisplay[3] = (std::to_string(score));
-	theDisplay[5] = (std::to_string(hiscore));
-
+void TextDisplay::notify(Subject<State> &whoFrom){
 	State s = whoFrom.getState();
 	BlockType blocktype = s.blocktype;
 	Type cellType = s.type;
+	Status status = s.status;
 	size_t col = s.c;
 	size_t row = s.r;
-
-	// Displaying blocks in the gameplay grid
-	if (blocktype == BlockType::Current) {
-		if (cellType == Type::I) {
-			theDisplay[(row * gridWidth) + col + 7] = "I";
-		}
-		else if (cellType == Type::J) {
-			theDisplay[(row * gridWidth) + col + 7] = "J";
-		}
-		else if (cellType == Type::L) {
-			theDisplay[(row * gridWidth) + col + 7] = "L";
-		}
-		else if (cellType == Type::S) {
-			theDisplay[(row * gridWidth) + col + 7] = "S";
-		}
-		else if (cellType == Type::Z) {
-			theDisplay[(row * gridWidth) + col + 7] = "Z";
-		}
-		else if (cellType == Type::T) {
-			theDisplay[(row * gridWidth) + col + 7] = "T";
-		}
-		else if (cellType == Type::O) {
-			theDisplay[(row * gridWidth) + col + 7] = "O";
-		}
-		else if (cellType == Type::Single) {
-			theDisplay[(row * gridWidth) + col + 7] = "B";
-		}
-		else {
-			theDisplay[(row * gridWidth) + col + 7] = " ";
-		}
-	}
-
-	// Displaying next block
-	else {
-		if (cellType == Type::I) { 
-			theDisplay[(row * gridWidth) + col + 200] = "I";
-		}
-		else if (cellType == Type::J) {
-			theDisplay[(row * gridWidth) + col + 200] = "J";
-		}
-		else if (cellType == Type::L) {
-			theDisplay[(row * gridWidth) + col + 200] = "L";
-		}
-		else if (cellType == Type::S) {
-			theDisplay[(row * gridWidth) + col + 200] = "S";
-		}
-		else if (cellType == Type::Z) {
-			theDisplay[(row * gridWidth) + col + 200] = "Z";
-		}
-		else if (cellType == Type::T) {
-			theDisplay[(row * gridWidth) + col + 200] = "T";
-		}
-		else {
-			theDisplay[(row * gridWidth) + col + 200] = "O";
-		}
-	}
-	
+  if (s.status == Status::Solid){
+    switch(cellType){
+      case Type::Single:
+       theDisplay[row][col] = '*';
+      case Type::I:
+        theDisplay[row][col] = 'I';
+      case Type::J:
+        theDisplay[row][col] = 'J';
+      case Type::L:
+        theDisplay[row][col] = 'L';
+      case Type::S:
+        theDisplay[row][col] = 'S';
+      case Type::Z:
+        theDisplay[row][col] = 'Z';
+      case Type::O:
+        theDisplay[row][col] = 'O';
+      case Type::T:
+        theDisplay[row][col] = 'T';
+      default:
+        theDisplay[row][col] = '?';
+    }
+  } else if (s.status == Status::Temp){
+    theDisplay[row][col] = 'N';
+  } else if (s.status == Status::Empty){
+    theDisplay[row][col] = ' ';
+  }
 }
 
-std::ostream &operator<<(std::ostream &out, const TextDisplay &td) {
-	out << td.theDisplay[0] << td.theDisplay[1] << endl;	// Prints level
-	out << td.theDisplay[2] << td.theDisplay[3] << endl;	// Prints score
-	out << td.theDisplay[4] << td.theDisplay[5] << endl;	// Prints hi score
-	out << td.theDisplay[6] << endl;						// Prints line
-	// Prints gameplay grid
-	for (int j = 0; j < td.gridHeight; j++) {
-		for (int k = 0; k < td.gridWidth; k++) {
-			out << td.theDisplay[(j * td.gridWidth) + k + 7];
-		}
-		out << endl;
-	}
-	out << td.theDisplay[198] << endl;						// Prints line
-	out << td.theDisplay[199] << endl;						// Prints next
-	// Prints next block
-	for (int j = 0; j < 2; j++) {
-		for (int k = 0; k < td.gridWidth; k++) {
-			out << td.theDisplay[(j * td.gridWidth) + k + 200];
-		}
-		out << endl;
-	}
-	return out;
+ostream &operator<<(ostream &out, const TextDisplay &td){
+  out << "Level: " << td.level->num() << endl;
+  out << "Score: " << td.score->getScore() << endl;
+  out << "Hi Score: " << td.score->getHiScore() << endl;
+  out << "-----------" << endl;
+  for (int i = 17; i >= 0; --i){
+    for (int j = 0; j < 11; ++j){
+      out << td.theDisplay[i][j];
+    }
+    out << endl;
+  }
+  out << "-----------" << endl;
+  return out;
 }

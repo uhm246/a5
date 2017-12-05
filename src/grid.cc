@@ -28,24 +28,9 @@ void Grid::clearLine(size_t r){
 
 void Grid::clearLines(){
   vector<size_t> v = checkLines();
-  increaseScore((v.size() + getLevel().num()) *
-                (v.size() + getLevel().num()));
+  score.increaseScore((v.size() + getLevel().num()) *
+                      (v.size() + getLevel().num()));
   checkBlocks();
-}
-
-void Grid::resetScore(){
-  setHiScore();
-  score = 0;
-}
-
-void Grid::setHiScore(){
-  if (score > hiscore){
-    hiscore = score;
-  }
-}
-
-void Grid::increaseScore(int i){
-  score += i;
 }
 
 void Grid::addBlock(Block* b){
@@ -57,7 +42,7 @@ vector<int> Grid::checkBlocks(){
   for (int i = 0; i < blocks.size(); i++){
     if (blocks[i]->getSize() == 0){
       int l = blocks[i]->getLevel();
-      increaseScore((l + 1) * (l + 1));
+      score.increaseScore((l + 1) * (l + 1));
       idxs.push_back(i);
     }
   }
@@ -87,7 +72,7 @@ vector<size_t> Grid::checkLines(){
 }
 
 void Grid::init(){
-  resetScore();
+  score.resetScore();
   theGrid.clear();
   theGrid.resize(this->height);
   for (size_t i = 0; i < this->height; ++i){
@@ -212,6 +197,7 @@ void Grid::setBlock(Block b, size_t r, size_t c){
   vector<vector<int>> v = b.getCoords(r, c);
   for (auto a : v){
     cout << "r: " << a[0] << " c: " << a[1] << endl;
+    theGrid[a[0]][a[1]].setType(b.getType());
     theGrid[a[0]][a[1]].setStatus(Status::Solid);
     theGrid[a[0]][a[1]].setBlock(&b);
   }
@@ -240,12 +226,16 @@ Level& Grid::getLevel(){
   return level;
 }
 
-int Grid::getScore(){
+Score& Grid::getScoreObject(){
   return score;
 }
 
+int Grid::getScore(){
+  return score.getScore();
+}
+
 int Grid::getHiScore(){
-  return hiscore;
+  return score.getHiScore();
 }
 
 void Grid::setSeed(int s){

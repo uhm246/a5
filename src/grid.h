@@ -8,27 +8,24 @@
 #include "block.h"
 #include "level.h"
 #include "textdisplay.h"
+#include "score.h"
 
 class Grid {
   
   std::vector<std::vector<Cell>> theGrid;
   std::vector<Block*> blocks;
   TextDisplay *td = nullptr;
+  Score score;
   //GraphicsDisplay *gd = nullptr;
   Observer<State> *ob = nullptr; 
   
   void clearLine(size_t r);
   void clearLines();
 
-  int score = 0;
-  int hiscore = 0;
   int seed = 0;
   bool textmode = false;
   bool seq = false;
   int seqind = 0;
-  void resetScore();
-  void increaseScore(int i);
-  void setHiScore();
   void addBlock(Block* b);
   std::vector<int> checkBlocks();
   std::vector<size_t> checkLines();
@@ -70,6 +67,8 @@ class Grid {
 
   // Get current level
   Level& getLevel();
+
+  Score& getScoreObject();
 
   // Get current score
   int getScore();
