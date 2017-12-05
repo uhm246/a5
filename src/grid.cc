@@ -33,9 +33,11 @@ void Grid::clearLines(){
     clearLine(a-i);
     i++;
   }
-  score.increaseScore((v.size() + getLevel().num()) *
+  if (i > 0){
+    score.increaseScore((v.size() + getLevel().num()) *
                       (v.size() + getLevel().num()));
-  checkBlocks();
+    checkBlocks();
+  }
 }
 
 void Grid::addBlock(Block* b){
