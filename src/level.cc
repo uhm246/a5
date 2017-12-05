@@ -167,6 +167,13 @@ void Level::decreaseLevel(){
   }
 }
 
+void Level::resetlvl4count(){
+  lvl4count = 0;
+}
+
+int Level::getlvl4count(){
+  return lvl4count;
+}
 
 // For Level 4, I need to first implement whatever the "Controller" or
 //  whatever Level 4 will be observing first before I can have a clear idea
