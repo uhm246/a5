@@ -175,6 +175,10 @@ int Level::getlvl4count(){
   return lvl4count;
 }
 
+void Level::increaselvl4count(){
+  lvl4count += 1;
+}
+
 // For Level 4, I need to first implement whatever the "Controller" or
 //  whatever Level 4 will be observing first before I can have a clear idea
 //  of its implementation.

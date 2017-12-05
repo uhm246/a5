@@ -27,6 +27,7 @@ public:
   void increaseLevel();
   void decreaseLevel();
   void resetlvl4count();
+  void increaselvl4count();
   int getlvl4count();
 };
 
