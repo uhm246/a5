@@ -56,12 +56,20 @@ int main(int argc, char *argv[]){
 			string seed = argv[argind + 1];
 			game.setSeed(stoi(seed));
 			argind += 2;
+<<<<<<< HEAD
 		} else if (argv1 == "-scriptfile"){ 
 			string filename;
 			filename = argv[argind + 1];
       game.getLevel().setSequence(filename);
 			argind += 2;
 	  } else if (argv1 == "-startlevel"){ 
+=======
+		} else if (argv1 == "-scriptfile"){
+			string filename = argv[argind + 1];
+      game.getLevel().setSequence(filename);
+      argind += 2;
+	  } else if (argv1 == "-startlevel"){
+>>>>>>> 751410b4048d03364450e91be7b7c6d1c81a26d1
 	  	string l = argv[argind + 1];
 			int lev = stoi(l);
 			game.getLevel().setLevel(lev);

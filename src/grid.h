@@ -47,6 +47,7 @@ class Grid {
 
   // Verify that a move is valid
   bool verifyMove(Block b, Move m, size_t r, size_t c);
+  bool verifyLocation(Block b, size_t r, size_t c);
 
   // Verify that a rotate is valid
   bool verifyRotate(Block b, Rotate m, size_t r, size_t c);
