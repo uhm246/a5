@@ -57,8 +57,9 @@ int main(int argc, char *argv[]){
 			game.setSeed(stoi(seed));
 			argind += 2;
 		} else if (argv1 == "-scriptfile"){
-			string filename
+			string filename = argv[argind + 1];
       game.getLevel().setSequence(filename);
+      argind += 2;
 	  } else if (argv1 == "-startlevel"){
 	  	string l = argv[argind + 1];
 			int lev = stoi(l);
