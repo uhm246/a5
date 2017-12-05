@@ -55,7 +55,6 @@ Block Level::getBlock(){
       return b;
     }
   } else if (n == 1){
-    cout << "getting block level 1" << endl;
     srand(seed); // reset seed
     int i = rand() % 12;
     if (i == 0){

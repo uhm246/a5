@@ -153,7 +153,6 @@ void Command::execute(){
 	} 
 
 	else if (type == "left"){
-		cout << "LEFT" << endl;
 		if (g->verifyMove(b_cur, Move::Left, r, c)){
 			g->voidBlock(b_cur, r, c);
 			c -= 1;
@@ -186,7 +185,6 @@ void Command::execute(){
 	} 
 
 	else if (type == "drop"){
-		cout << "dropped" << endl;
 		size_t old_r = r;
 		size_t old_c = c;
  		while (g->verifyMove(b_cur, Move::Down, r, c )){

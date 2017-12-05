@@ -2,8 +2,8 @@
 #define SCORE_H
 
 class Score {
-  int score;
-  int hiscore;
+  int score = 0;
+  int hiscore = 0;
 public:
   void resetScore();
   void increaseScore(int i);

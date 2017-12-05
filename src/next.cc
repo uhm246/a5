@@ -6,13 +6,13 @@ using namespace std;
 void Next::init(){
   theGrid.clear();
   theGrid.resize(this->height);
-   for (size_t i = 0; i < this->height; ++i){
-    for (size_t j = 0; j < this->width; ++j){
+   for (int i = 0; i < this->height; ++i){
+    for (int j = 0; j < this->width; ++j){
       theGrid[i].emplace_back(Cell(i,j));
     }
   }
-  for (size_t i = 0; i < this->height; ++i){
-    for (size_t j = 0; j < this->width; ++j){
+  for (int i = 0; i < this->height; ++i){
+    for (int j = 0; j < this->width; ++j){
       //theGrid[i][j].attach(td);
       //theGrid[i][j].attach(gd);
     }

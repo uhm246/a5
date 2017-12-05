@@ -162,7 +162,6 @@ int main(int argc, char *argv[]){
       if (cmd.length() > 1){
         //cout << ">1 i: " << i << endl;
         string check = cmd.substr(i, 2);
-        cout << check << endl;
         if (check == "se") command.setType("seq");
         if (check == "re"){
           rep = 1;
@@ -209,9 +208,7 @@ int main(int argc, char *argv[]){
           command.setType("leveldown");
         }
       }
-      cout << rep << endl;
       while (rep > 0){
-        cout << "EXEC" << endl;
         command.execute();
         rep -= 1;
       }

@@ -103,7 +103,8 @@ void Block::initCells(size_t r, size_t c) {
 }
 
 void Block::removeCell(size_t r, size_t c) {
-	for (int i = 0; i < cells.size(); i++) {
+	int size = cells.size();
+	for (int i = 0; i < size; i++) {
 		if (cells[i].getCol() == c && cells[i].getRow() == r) {
 			cells.erase(cells.begin() + i);
 			return;
@@ -112,7 +113,8 @@ void Block::removeCell(size_t r, size_t c) {
 }
 
 void Block::remapCell(size_t r1, size_t c1, size_t r2, size_t c2) {
-	for (int i = 0; i < cells.size(); i++) {
+	int size = cells.size();
+	for (int i = 0; i < size; i++) {
 		if (cells[i].getCol() == c1 && cells[i].getRow() == r1) {
 			cells.erase(cells.begin() + i);
 			cells.emplace_back(Cell(r2, c2));
