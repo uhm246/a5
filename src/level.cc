@@ -11,7 +11,7 @@ using namespace std;
 
 Level::Level(){
   char b;
-  ifstream file("sequnece");
+  ifstream file("sequence.txt");
   while (file >> b){
     sequence.push_back(b);
   }

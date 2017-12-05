@@ -57,21 +57,14 @@ int main(int argc, char *argv[]){
 			game.setSeed(stoi(seed));
 			argind += 2;
 		} else if (argv1 == "-scriptfile"){
-			string filename;
-			filename = argv[argind + 1];
-			string b;
-			argind += 2;
-  			ifstream f(filename);
-  			while (f >> b){
-    			seq.push_back(b);
-    		}
-
-	  	} else if (argv1 == "-startlevel"){
-	  		string l = argv[argind + 1];
+			string filename
+      game.getLevel().setSequence(filename);
+	  } else if (argv1 == "-startlevel"){
+	  	string l = argv[argind + 1];
 			int lev = stoi(l);
 			game.getLevel().setLevel(lev);
 			argind += 2;
-		} else if (arv1 == "-text"){
+		} else if (argv1 == "-text"){
       game.setTextMode(true);
       argind += 1;
     } else {
