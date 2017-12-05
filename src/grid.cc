@@ -206,19 +206,17 @@ void Grid::setBlock(Block b, size_t r, size_t c){
 int Grid::checkHoles(size_t r, size_t c, size_t width, size_t depth){
   int holes = 0;
   int rint = r;
+  int cint = c;
   int wint = width;
   int dint = depth;
   for (int i = 0; i < dint; i++){
-    bool not_zero = true;
-    if (not_zero){
-      for (int j = rint; j < rint + wint; j++){
-        if (rint < this->width && 
-            theGrid[r - depth - 1][j].getState().status == Fill::Empty){
-          holes++;
-        }
+    for (int j = cint; j < cint + wint; j++){
+      if (cint < this->width && rint - i > 0 &&
+        theGrid[r - i - 1][j].getState().status == Fill::Empty){
+        holes++;
       }
-      if (r - depth - 1 == 0) not_zero = false;
     }
+    
   }
   return holes;
 }

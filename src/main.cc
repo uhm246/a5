@@ -159,6 +159,7 @@ int main(int argc, char *argv[]){
           }
         if (check == "h"){
           rep = 1; 
+          hint = true;
           command.setType("hint");
         } 
       } 

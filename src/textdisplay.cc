@@ -40,12 +40,14 @@ void TextDisplay::notify(Subject<State> &whoFrom){
         case Type::T:
           theDisplay[row][col] = 'T';
         default:
-          theDisplay[row][col] = '?';
+          theDisplay[row][col] = 'M';
       }
     } else if (status == Fill::Temp){
       theDisplay[row][col] = 'N';
     } else if (status == Fill::Empty){
       theDisplay[row][col] = ' ';
+    } else if (status == Fill::Hint){
+      theDisplay[row][col] = '?';
     }
   }
 }
