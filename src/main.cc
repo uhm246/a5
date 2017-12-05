@@ -71,7 +71,7 @@ int main(int argc, char *argv[]){
 			int lev = stoi(l);
 			game.getLevel().setLevel(lev);
 			argind += 2;
-		} else if (arv1 == "-text"){
+		} else if (argv1 == "-text"){
       game.setTextMode(true);
       argind += 1;
     } else {
