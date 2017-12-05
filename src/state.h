@@ -3,7 +3,7 @@
 #include <cstdlib>
 
 enum class Colour { LBlue, DBlue, Orange, Green, Red, Purple, Yellow, Brown };
-enum class Fill { Empty, Temp, Solid };
+enum class Fill { Empty, Temp, Solid, Hint };
 enum class Move { Down, Left, Right };
 enum class Rotate { Clockwise, Counterclockwise };
 enum class Type { I, J, L, S, Z, T, O, Single, None };

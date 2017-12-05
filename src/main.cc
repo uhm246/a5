@@ -96,7 +96,7 @@ int main(int argc, char *argv[]){
     bool hint = false;
     while(true){
       if (hint){
-        command.delHint()
+        command.delHint();
         hint = false;
       }
       cmd = "";

@@ -57,6 +57,8 @@ class Grid {
   // Draw a block on board (this is a Temp block)
   void drawBlock(Block b, size_t r, size_t c);
 
+  void drawHint(Block b, size_t r, size_t c);
+
   // Undraw the block
   void voidBlock(Block b, size_t r, size_t c);
 

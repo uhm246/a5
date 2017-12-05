@@ -23,8 +23,8 @@ Block Command::getCur(){
 	return b_cur;
 }
 
-void Command::delHint(Block b, size_t r, size_t c){
-	g->voidBlock(b, r, c);
+void Command::delHint(){
+	g->voidBlock(b_cur, hr, hc);
 }
 
 void Command::block(string s){
@@ -131,17 +131,51 @@ void Command::execute(){
 
 	else if (type == "norandom"){
 		g->getLevel().setRandom(false);
-
 	} 
 
 	else if (type == "hint"){
+		size_t tr = r;
+		size_t tc = c;
+		size_t optr;
+		size_t optc;
+		int trot = 0;
+		int optrot = 0;
+		int holes = 50;
+		int theight = 50;
+		Block b1 = b_cur;
 
+		while(g->verifyMove(b1, Move::Left, tr, tc)){
+			tc--;
+		}
+		while(g->verifyMove(b1, Move::Right, tr, tc)){
+			for (int i = 0; i < 4; i++){
+				trot = i;
+				b1 = b1.clockwise(b1);
+				while(g->verifyMove(b1, Move::Down, tr, tc)){
+					tr--;
+				}
+				int cur_height = tr;
+				int cur_holes = g->checkHoles(tr, tc, 3, 3); // these are heuristics
+				if (cur_holes < holes || (cur_holes == holes && cur_height < theight)){
+					optrot = trot;
+					holes = cur_holes;
+					theight = cur_height;
+					optr = tr;
+					optc = tc;
+				}
+				tc++;
+			}
+		}
+		Block b2 = b_cur;
+		for (int i = 0; i < optrot; i++){
+			b2 = b2.clockwise(b2);
+		}
+		g->drawHint(b2, optr, optc);
 	} 
 
 	else if (type == "seq"){
 		g->setSeq(true);
 		g->setSeqInd(0);
-
 	} 
 
 	else if (type == "restart"){

@@ -14,6 +14,8 @@ class Command {
 	Block b_next;
 	size_t r = 0;
 	size_t c = 0;
+	size_t hr = 0;
+	size_t hc = 0;
 	std::string type;
 	std::string file;
 public:
@@ -23,6 +25,7 @@ public:
 	void setFile(std::string s);
 	void block(std::string s);
 	void execute();
+	void delHint();
 	Block getCur();
 };
 

@@ -177,6 +177,14 @@ void Grid::drawBlock(Block b, size_t r, size_t c){
   }
 }
 
+void Grid::drawHint(Block b, size_t r, size_t c){
+  vector<vector<int>> v = b.getCoords(r, c);
+  for (auto a : v){
+    theGrid[a[0]][a[1]].setStatus(Fill::Hint);
+    theGrid[a[0]][a[1]].setType(b.getType());
+  }
+}
+
 void Grid::voidBlock(Block b, size_t r, size_t c){
   vector<vector<int>> v = b.getCoords(r, c);
   for (auto a : v){
