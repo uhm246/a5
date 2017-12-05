@@ -7,13 +7,15 @@ Grid::~Grid(){
 }
 
 void Grid::clearLine(size_t r){
+  cout << "clearLine()" << endl;
   for (size_t i = 0; i < this->width; i++){
     if (theGrid[r][i].getState().status == Status::Solid){
+      cout << "remove cell " << r << " " << i << endl;
       theGrid[r][i].getBlock()->removeCell(r, i);
     }
     theGrid[r][i].setStatus(Status::Empty);
   }
-  for (size_t i = r+1; i < this->height - 1; i++){ //maybe adjust more
+  for (size_t i = r; i < this->height - 1; i++){ //maybe adjust more
     for (size_t j = 0; j < this->width; j++){
       State aboveinfo = theGrid[i+1][j].getState();
       Status abovestatus = aboveinfo.status;
@@ -27,7 +29,13 @@ void Grid::clearLine(size_t r){
 }
 
 void Grid::clearLines(){
+  cout << "clearLines()" << endl;
   vector<size_t> v = checkLines();
+  cout << "checkLines() done" << endl;
+  for (auto a : v){
+    cout << "line to be cleared : " << a << endl;
+    clearLine(a);
+  }
   score.increaseScore((v.size() + getLevel().num()) *
                       (v.size() + getLevel().num()));
   checkBlocks();
@@ -62,8 +70,10 @@ bool checkLine(vector<Cell>& v){
 }
 
 vector<size_t> Grid::checkLines(){
+  cout << "checkLines()" << endl;
   vector<size_t> v;
   for (size_t r = 0; r < this->height; r++){
+    cout << "checkLine(): " << r << endl;
     if (checkLine(theGrid[r])){
       v.push_back(r);
     }
@@ -105,18 +115,18 @@ bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
       }
       return true;
     case Move::Right:
-      cout << "case : right" << endl;
+      //cout << "case : right" << endl;
       for (auto a : v){
-        cout << "a[0]: " << a[0] << " a[1]: " << a[1] << endl;
+        //cout << "a[0]: " << a[0] << " a[1]: " << a[1] << endl;
         if (a[1] < this->width - 1){
-          cout << "width check pass" << endl;
+          //cout << "width check pass" << endl;
           State i = theGrid[a[0]][a[1]+1].getState();
           if (i.status == Status::Solid){
-            cout << "solid check fail" << endl;
+            //cout << "solid check fail" << endl;
             return false;
           }
         } else {
-          cout << "width check fail" << endl;
+          //cout << "width check fail" << endl;
           return false;
         }
       }
@@ -139,19 +149,19 @@ bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
 }
 
 bool Grid::verifyRotate(Block b, Rotate m, size_t r, size_t c){
-  cout << "verifyRotate" << endl;
+  //cout << "verifyRotate" << endl;
   vector<vector<int>> v = b.getRotatedCoords(r, c, m);
   for (auto a : v){
-    cout << "r: " << a[0] << " c: " << a[1] << endl;
+    //cout << "r: " << a[0] << " c: " << a[1] << endl;
     if (a[0] >= 0 && a[1] >= 0 && a[1] < this->width){
-      cout << "bounds check pass" << endl;
+      //cout << "bounds check pass" << endl;
       State i = theGrid[a[0]][a[1]].getState();
       if (i.status == Status::Solid){
         cout << "solid test fail" << endl;
         return false;
       }
     } else {
-      cout << "bounds check fail" << endl;
+      //cout << "bounds check fail" << endl;
       return false;
     }
   }
@@ -201,7 +211,7 @@ void Grid::setBlock(Block b, size_t r, size_t c){
     theGrid[a[0]][a[1]].setStatus(Status::Solid);
     theGrid[a[0]][a[1]].setBlock(&b);
   }
-  //clearLines();
+  clearLines();
   addBlock(&b);
 }
 

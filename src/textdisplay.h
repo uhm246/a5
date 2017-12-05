@@ -12,6 +12,7 @@ class Cell;
 
 class TextDisplay: public Observer<State> {
   std::vector<std::string> theDisplay;
+  std::vector<std::string> blockDisplay;
   Score* score;
   Level* level;
  public:
