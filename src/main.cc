@@ -127,7 +127,8 @@ int main(int argc, char *argv[]){
       while (isdigit(cmd[i])){
         cout << rep << endl;
         cout << i << "digits" << endl;
-        rep = rep * 10 + cmd[i];
+        rep = (rep * 10) + cmd[i];
+        cout << rep << endl;
         i += 1;
       }
 
