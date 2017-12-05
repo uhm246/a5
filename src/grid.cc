@@ -9,18 +9,18 @@ Grid::~Grid(){
 void Grid::clearLine(size_t r){
   cout << "clearLine()" << endl;
   for (size_t i = 0; i < this->width; i++){
-    if (theGrid[r][i].getState().status == Status::Solid){
+    if (theGrid[r][i].getState().status == Fill::Solid){
       cout << "remove cell " << r << " " << i << endl;
       theGrid[r][i].getBlock()->removeCell(r, i);
     }
-    theGrid[r][i].setStatus(Status::Empty);
+    theGrid[r][i].setStatus(Fill::Empty);
   }
   for (size_t i = r; i < this->height - 1; i++){ //maybe adjust more
     for (size_t j = 0; j < this->width; j++){
       State aboveinfo = theGrid[i+1][j].getState();
-      Status abovestatus = aboveinfo.status;
+      Fill abovestatus = aboveinfo.status;
       Type abovetype = aboveinfo.type;
-      if (abovestatus != Status::Temp){
+      if (abovestatus != Fill::Temp){
         theGrid[i][j].setStatus(abovestatus);
         theGrid[i][j].setType(abovetype);
       }
@@ -64,7 +64,7 @@ vector<int> Grid::checkBlocks(){
 
 bool checkLine(vector<Cell>& v){
   for (auto a : v){
-    if (a.getState().status != Status::Solid){
+    if (a.getState().status != Fill::Solid){
       return false;
     }
   }
@@ -108,7 +108,7 @@ bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
       for (auto a : v){
         if (a[0] > 0){
           State i = theGrid[a[0]-1][a[1]].getState();
-          if (i.status == Status::Solid){
+          if (i.status == Fill::Solid){
             return false;
           }
         } else {
@@ -123,7 +123,7 @@ bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
         if (a[1] < this->width - 1){
           //cout << "width check pass" << endl;
           State i = theGrid[a[0]][a[1]+1].getState();
-          if (i.status == Status::Solid){
+          if (i.status == Fill::Solid){
             //cout << "solid check fail" << endl;
             return false;
           }
@@ -137,7 +137,7 @@ bool Grid::verifyMove(Block b, Move m, size_t r, size_t c){
       for (auto a : v){
         if (a[1] > 0){
           State i = theGrid[a[0]][a[1]-1].getState();
-          if (i.status == Status::Solid){
+          if (i.status == Fill::Solid){
             return false;
           }
         } else {
@@ -158,7 +158,7 @@ bool Grid::verifyRotate(Block b, Rotate m, size_t r, size_t c){
     if (a[0] >= 0 && a[1] >= 0 && a[1] < this->width){
       //cout << "bounds check pass" << endl;
       State i = theGrid[a[0]][a[1]].getState();
-      if (i.status == Status::Solid){
+      if (i.status == Fill::Solid){
         cout << "solid test fail" << endl;
         return false;
       }
@@ -175,7 +175,7 @@ bool Grid::verifySwitch(Block b, size_t r, size_t c){
   for (auto a : v){
     if (a[0] > 0 && a[1] > 0 && a[1] < this->width){
       State i = theGrid[a[0]][a[1]].getState();
-      if (i.status == Status::Solid){
+      if (i.status == Fill::Solid){
         return false;
       }
     } else {
@@ -190,7 +190,7 @@ void Grid::drawBlock(Block b, size_t r, size_t c){
   vector<vector<int>> v = b.getCoords(r, c);
   for (auto a : v){
     cout << "r: " << a[0] << " c: " << a[1] << endl;
-    theGrid[a[0]][a[1]].setStatus(Status::Temp);
+    theGrid[a[0]][a[1]].setStatus(Fill::Temp);
     theGrid[a[0]][a[1]].setType(b.getType());
   }
 }
@@ -200,7 +200,7 @@ void Grid::voidBlock(Block b, size_t r, size_t c){
   vector<vector<int>> v = b.getCoords(r, c);
   for (auto a : v){
     cout << "r: " << a[0] << " c: " << a[1] << endl;
-    theGrid[a[0]][a[1]].setStatus(Status::Empty);
+    theGrid[a[0]][a[1]].setStatus(Fill::Empty);
   }
 }
 
@@ -210,7 +210,7 @@ void Grid::setBlock(Block b, size_t r, size_t c){
   for (auto a : v){
     cout << "r: " << a[0] << " c: " << a[1] << endl;
     theGrid[a[0]][a[1]].setType(b.getType());
-    theGrid[a[0]][a[1]].setStatus(Status::Solid);
+    theGrid[a[0]][a[1]].setStatus(Fill::Solid);
     theGrid[a[0]][a[1]].setBlock(&b);
   }
   clearLines();
@@ -224,7 +224,7 @@ int Grid::checkHoles(size_t r, size_t c, size_t width, size_t depth){
     if (not_zero){
       for (int j = r; j < r + width; j++){
         if (r < this->width && 
-            theGrid[r - depth - 1][j].getState().status == Status::Empty){
+            theGrid[r - depth - 1][j].getState().status == Fill::Empty){
           holes++;
         }
       }
@@ -280,6 +280,10 @@ void Grid::incrementSeqInd(){
 
 void Grid::setTextDisplay(TextDisplay *t){
   td = t;
+}
+
+void Grid::setGraphicsDisplay(GraphicsDisplay *g){
+  gd = g;
 }
 
 ostream &operator<<(ostream &out, const Grid &g){

@@ -17,11 +17,11 @@ void TextDisplay::notify(Subject<State> &whoFrom){
 	State s = whoFrom.getState();
 	BlockType blocktype = s.blocktype;
 	Type cellType = s.type;
-	Status status = s.status;
+	Fill status = s.status;
 	size_t col = s.c;
 	size_t row = s.r;
   if (true){ // s.blocktype == BlockType::Current){
-    if (s.status == Status::Solid){
+    if (s.status == Fill::Solid){
       switch(cellType){
         case Type::Single:
           theDisplay[row][col] = '*';
@@ -42,9 +42,9 @@ void TextDisplay::notify(Subject<State> &whoFrom){
         default:
           theDisplay[row][col] = '?';
       }
-    } else if (s.status == Status::Temp){
+    } else if (s.status == Fill::Temp){
       theDisplay[row][col] = 'N';
-    } else if (s.status == Status::Empty){
+    } else if (s.status == Fill::Empty){
       theDisplay[row][col] = ' ';
     }
   }

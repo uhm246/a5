@@ -8,7 +8,7 @@ class Block;
 
 class Cell : public Subject<State> {
   size_t r, c;
-  Status status;
+  Fill status;
   Type type;
   Block* block;
   BlockType blocktype = BlockType::Current;
@@ -19,7 +19,7 @@ class Cell : public Subject<State> {
   size_t getCol();
   void setNext();
   Type getType();
-  void setStatus(Status s);
+  void setStatus(Fill s);
   void setType(Type t);
   Block* getBlock();
   void setBlock(Block* b);

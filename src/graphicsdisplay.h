@@ -5,7 +5,6 @@
 #include "observer.h"
 #include "state.h"
 #include "window.h"
-#include "info.h"
 class Cell;
 
 class GraphicsDisplay: public Observer<State> {
@@ -16,8 +15,8 @@ class GraphicsDisplay: public Observer<State> {
 	Xwindow xw;
 
  public:
-  GraphicsDisplay(int level, int score, int hiScore);
+  GraphicsDisplay();
 
-  void notify(Subject<State> &whoNotified, int level, int score, int hiScore) override;
+  void notify(Subject<State> &whoFrom) override;
 };
 #endif

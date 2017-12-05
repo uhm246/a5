@@ -2,7 +2,7 @@
 #include "observer.h"
 
 Cell::Cell(size_t r, size_t c): 
-r(r), c(c), status(Status::Empty), type(Type::None), block(nullptr){
+r(r), c(c), status(Fill::Empty), type(Type::None), block(nullptr){
   State st { r, c, status, type, blocktype };
   setState(st);
 }
@@ -23,7 +23,7 @@ Type Cell::getType() {
 	return type;
 }
 
-void Cell::setStatus(Status s){
+void Cell::setStatus(Fill s){
   status = s;
   State st { r, c, status, type, blocktype };
   setState(st);

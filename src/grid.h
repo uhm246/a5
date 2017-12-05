@@ -8,6 +8,7 @@
 #include "block.h"
 #include "level.h"
 #include "textdisplay.h"
+#include "graphicsdisplay.h"
 #include "score.h"
 
 class Grid {
@@ -16,7 +17,7 @@ class Grid {
   std::vector<Block*> blocks;
   TextDisplay *td = nullptr;
   Score score;
-  //GraphicsDisplay *gd = nullptr;
+  GraphicsDisplay *gd = nullptr;
   Observer<State> *ob = nullptr; 
   
   void clearLine(size_t r);
@@ -97,8 +98,9 @@ class Grid {
   // Increment sequence index
   void incrementSeqInd();
 
-  //void setGraphicsDisplay();
+  void setGraphicsDisplay(GraphicsDisplay *g);
   void setTextDisplay(TextDisplay *t);
+
 
   friend std::ostream &operator<<(std::ostream &out, const Grid &g);
 };

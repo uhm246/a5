@@ -8,7 +8,7 @@
 #include "textdisplay.h"
 #include "subject.h"
 //#include "window.h"
-//#include "graphicsdisplay.h"
+#include "graphicsdisplay.h"
 #include "command.h"
 #include "state.h"
 #include "score.h"
@@ -45,7 +45,9 @@ int main(int argc, char *argv[]){
 	string cmd;
 	Grid game;
 	TextDisplay* td = new TextDisplay(&game.getScoreObject(), &game.getLevel());
+	GraphicsDisplay* gd = new GraphicsDisplay();
 	game.setTextDisplay(td);
+	game.setGraphicsDisplay(gd);
 	game.init(); // initialize game
 	int argind = 1;
 	while (argind < argc - 1){
