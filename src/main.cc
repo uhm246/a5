@@ -94,11 +94,8 @@ int main(int argc, char *argv[]){
     command.init(b1, b2);
     command.block(block2cmd(b1));
     bool hint = false;
+    bool hinted = false;
     while(true){
-      if (hint){
-        command.delHint();
-        hint = false;
-      }
       cmd = "";
       // Update Board
       cout << game;
@@ -159,7 +156,7 @@ int main(int argc, char *argv[]){
           }
         if (check == "h"){
           rep = 1; 
-          hint = true;
+          hinted = true;
           command.setType("hint");
         } 
       } 
@@ -214,7 +211,14 @@ int main(int argc, char *argv[]){
         }
       }
       while (rep > 0){
+        if (hint){
+          command.delHint();
+          hint = false;
+        }
         command.execute();
+        if (hinted){
+          hint = true;
+        }
         rep -= 1;
       }
 
