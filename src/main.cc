@@ -126,18 +126,14 @@ int main(int argc, char *argv[]){
       // Increment rep as needed
       while (isdigit(cmd[i])){
         int inc = cmd[i] - 48;
-        cout << rep << endl;
-        cout << i << "digits" << endl;
-        cout << cmd[i];
-        rep = (rep * 10) + inc;;
-        cout << rep << endl;
+        rep = rep * 10 + inc;
         i += 1;
       }
 
       // First class of commands: 1 Letter
       if (cmd.length() > 0){
-        cout << ">0" << endl;
-        string check = cmd.substr(i, 1);
+        //cout << ">0" << endl;
+        string check = cmd[i];
         if (check == "I") command.setType("I"); 
         if (check == "J") command.setType("J");
         if (check == "L") command.setType("L");
@@ -161,7 +157,7 @@ int main(int argc, char *argv[]){
       } 
       
       if (cmd.length() > 1){
-        cout << ">1 i: " << i << endl;
+        //cout << ">1 i: " << i << endl;
         string check = cmd.substr(i, 2);
         cout << check << endl;
         if (check == "se") command.setType("seq");
@@ -176,7 +172,7 @@ int main(int argc, char *argv[]){
         if (check == "do"){
           command.setType("down");
         }
-        if (check == "cw"){
+        if (check == "cl"){
           gravity = true;
           command.setType("cw");
         }
