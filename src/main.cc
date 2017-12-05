@@ -133,7 +133,7 @@ int main(int argc, char *argv[]){
       // First class of commands: 1 Letter
       if (cmd.length() > 0){
         //cout << ">0" << endl;
-        string check = cmd[i];
+        string check = cmd.substr(i, 1);
         if (check == "I") command.setType("I"); 
         if (check == "J") command.setType("J");
         if (check == "L") command.setType("L");
