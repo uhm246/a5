@@ -56,24 +56,12 @@ int main(int argc, char *argv[]){
 			string seed = argv[argind + 1];
 			game.setSeed(stoi(seed));
 			argind += 2;
-		} else if (argv1 == "-scriptfile"){
-<<<<<<< HEAD
+		} else if (argv1 == "-scriptfile"){ 
 			string filename;
 			filename = argv[argind + 1];
-			string b;
-			argind += 2;
-  			ifstream f(filename);
-  			while (f >> b){
-    			seq.push_back(b);
-    		}
-
-  	} else if (argv1 == "-startlevel"){
-=======
-			string filename = argv[argind + 1];
       game.getLevel().setSequence(filename);
-      argind += 2;
-	  } else if (argv1 == "-startlevel"){
->>>>>>> 93d34d56c9886022b84562e5bc929517f0237605
+			argind += 2;
+	  } else if (argv1 == "-startlevel"){ 
 	  	string l = argv[argind + 1];
 			int lev = stoi(l);
 			game.getLevel().setLevel(lev);
@@ -118,7 +106,7 @@ int main(int argc, char *argv[]){
       if (game.getSeq()){
         int size = seq.size();
         if (game.getSeqInd() < size){
-          cmd = seq[game.getSeqInd()];
+          cmd = game.getLevel().[game.getSeqInd()];
           game.incrementSeqInd(); 
         }
       } else {
@@ -176,7 +164,14 @@ int main(int argc, char *argv[]){
       if (cmd.length() > 1){
         //cout << ">1 i: " << i << endl;
         string check = cmd.substr(i, 2);
-        if (check == "se") command.setType("seq");
+        if (check == "se") {
+          command.setType("seq");
+          string b;
+          ifstream f(filename);
+          while (f >> b){
+            seq.push_back(b);
+          }
+        } 
         if (check == "re"){
           rep = 1;
           command.setType("restart");
