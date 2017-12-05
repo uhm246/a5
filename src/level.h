@@ -14,6 +14,7 @@ class Level{
   int n = 1;
   bool random = false;
   int seed = 0;
+  int lvl4count = 0;
 public:
   Level();
   Block getBlock();
@@ -25,6 +26,8 @@ public:
   void setSequence(std::string s);
   void increaseLevel();
   void decreaseLevel();
+  void resetlvl4count();
+  int getlvl4count();
 };
 
 /*

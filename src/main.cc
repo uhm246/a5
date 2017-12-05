@@ -218,9 +218,8 @@ int main(int argc, char *argv[]){
       }
 
       if (gravity && highLevel){
-        Command heavy;
-        heavy.setType("down");
-        heavy.execute();
+        command.setType("down");
+        command.execute();
       }
       
     }
