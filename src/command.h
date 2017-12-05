@@ -21,6 +21,7 @@ public:
 	void setGrid(Grid* grid);
 	void setType(std::string s);
 	void setFile(std::string s);
+	void block(std::string s);
 	void execute();
 	Block getCur();
 };

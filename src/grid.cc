@@ -208,12 +208,14 @@ void Grid::voidBlock(Block b, size_t r, size_t c){
 }
 
 void Grid::setBlock(Block b, size_t r, size_t c){
+  cout << "getCoords (setBlock) " << endl;
   vector<vector<int>> v = b.getCoords(r, c);
   for (auto a : v){
+    cout << "r: " << a[0] << " c: " << a[1] << endl;
     theGrid[a[0]][a[1]].setStatus(Status::Solid);
     theGrid[a[0]][a[1]].setBlock(&b);
   }
-  clearLines();
+  //clearLines();
   addBlock(&b);
 }
 

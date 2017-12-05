@@ -89,9 +89,7 @@ int main(int argc, char *argv[]){
     Block b1 = game.getLevel().getBlock();
     Block b2 = game.getLevel().getBlock();
     command.init(b1, b2);
-    cout << block2cmd(b1) << " AY" << endl;
-    command.setType(block2cmd(b1));
-    command.execute();
+    command.block(block2cmd(b1));
 
     while(true){
       cmd = "";
@@ -184,7 +182,8 @@ int main(int argc, char *argv[]){
         if (check == "dr"){
           command.setType("drop");
           command.execute();
-          command.setType(block2cmd(command.getCur()));
+          rep = 0;
+          command.block(block2cmd(command.getCur()));
         }
         if (check == "ra"){
           if (highLevel){
