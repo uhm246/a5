@@ -192,6 +192,15 @@ void Grid::voidBlock(Block b, size_t r, size_t c){
   }
 }
 
+void Grid::voidHint(Block b, size_t r, size_t c){
+  vector<vector<int>> v = b.getCoords(r, c);
+  for (auto a : v){
+    if (theGrid[a[0]][a[1]].getState().status == Fill::Hint){
+      theGrid[a[0]][a[1]].setStatus(Fill::Empty);  
+    }
+  }
+}
+
 void Grid::setBlock(Block b, size_t r, size_t c){
   vector<vector<int>> v = b.getCoords(r, c);
   for (auto a : v){

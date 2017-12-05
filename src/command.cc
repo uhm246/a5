@@ -24,7 +24,7 @@ Block Command::getCur(){
 }
 
 void Command::delHint(){
-	g->voidBlock(b_cur, hr, hc);
+	g->voidHint(b_cur, hr, hc);
 }
 
 void Command::block(string s){
@@ -134,12 +134,10 @@ void Command::execute(){
 	} 
 
 	else if (type == "hint"){
-		size_t tr = r;
-		size_t tc = c;
-		size_t optr;
-		size_t optc;
-		int trot = 0;
-		int optrot = 0;
+		size_t tr = 14;
+		size_t tc = 0;
+		size_t optr = 14;
+		size_t optc = 0;
 		int holes = 50;
 		int theight = 50;
 		Block b1 = b_cur;
@@ -148,28 +146,22 @@ void Command::execute(){
 			tc--;
 		}
 		while(g->verifyMove(b1, Move::Right, tr, tc)){
-			for (int i = 0; i < 4; i++){
-				trot = i;
-				b1 = b1.clockwise(b1);
-				while(g->verifyMove(b1, Move::Down, tr, tc)){
-					tr--;
-				}
-				int cur_height = tr;
-				int cur_holes = g->checkHoles(tr, tc, 3, 3); // these are heuristics
-				if (cur_holes < holes || (cur_holes == holes && cur_height < theight)){
-					optrot = trot;
-					holes = cur_holes;
-					theight = cur_height;
-					optr = tr;
-					optc = tc;
-				}
-				tc++;
+			size_t top = tr;
+			tr = top;
+			while(g->verifyMove(b1, Move::Down, tr, tc)){
+				tr--;
 			}
+			int cur_height = tr;
+			int cur_holes = g->checkHoles(tr, tc, 3, 3); // these are heuristics
+			if (cur_holes < holes || (cur_holes == holes && cur_height < theight)){
+				holes = cur_holes;
+				theight = cur_height;
+				optr = tr;
+				optc = tc;
+			}
+			tc++;
 		}
 		Block b2 = b_cur;
-		for (int i = 0; i < optrot; i++){
-			b2 = b2.clockwise(b2);
-		}
 		g->drawHint(b2, optr, optc);
 	} 
 

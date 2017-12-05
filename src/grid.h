@@ -62,6 +62,8 @@ class Grid {
   // Undraw the block
   void voidBlock(Block b, size_t r, size_t c);
 
+  void voidHint(Block b, size_t r, size_t c);
+
   // Set the block in stone in said location (this is a Solid block)
   void setBlock(Block b, size_t r, size_t c);
 
