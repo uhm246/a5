@@ -126,14 +126,15 @@ int main(int argc, char *argv[]){
 
       // Increment rep as needed
       while (isdigit(cmd[i])){
-        rep = rep * 10 + cmd[i];
+        int inc = cmd[i] - 48;
+        rep = rep * 10 + inc;
         i += 1;
       }
 
       // First class of commands: 1 Letter
       if (cmd.length() > 0){
-        cout << ">0" << endl;
-        string check = cmd.substr(i,i+1);
+        //cout << ">0" << endl;
+        string check = cmd.substr(i, 1);
         if (check == "I") command.setType("I"); 
         if (check == "J") command.setType("J");
         if (check == "L") command.setType("L");
@@ -157,8 +158,8 @@ int main(int argc, char *argv[]){
       } 
       
       if (cmd.length() > 1){
-        cout << ">1 i: " << i << endl;
-        string check = cmd.substr(i, i+2);
+        //cout << ">1 i: " << i << endl;
+        string check = cmd.substr(i, 2);
         cout << check << endl;
         if (check == "se") command.setType("seq");
         if (check == "re"){
@@ -172,7 +173,7 @@ int main(int argc, char *argv[]){
         if (check == "do"){
           command.setType("down");
         }
-        if (check == "cw"){
+        if (check == "cl"){
           gravity = true;
           command.setType("cw");
         }
@@ -194,19 +195,19 @@ int main(int argc, char *argv[]){
         }
       } 
 
-      if (cmd.length() > 2 && cmd.substr(i, i+3) == "lef"){
+      if (cmd.length() > 2 && cmd.substr(i, 3) == "lef"){
         command.setType("left");
       } 
-      /*
+      
 
       if (cmd.length() > 5){
-        if (cmd.substr(i, i+6) == "levelu"){
+        if (cmd.substr(i, 6) == "levelu"){
           command.setType("levelup");
-        } else if (cmd.substr(i, i+6) == "leveld"){
+        } else if (cmd.substr(i, 6) == "leveld"){
           command.setType("leveldown");
         }
-      }*/
-    
+      }
+      cout << rep << endl;
       while (rep > 0){
         cout << "EXEC" << endl;
         command.execute();
