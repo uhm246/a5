@@ -93,8 +93,12 @@ int main(int argc, char *argv[]){
     Block b2 = game.getLevel().getBlock();
     command.init(b1, b2);
     command.block(block2cmd(b1));
-
+    bool hint = false;
     while(true){
+      if (hint){
+        command.delHint()
+        hint = false;
+      }
       cmd = "";
       // Update Board
       cout << game;

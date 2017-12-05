@@ -23,6 +23,10 @@ Block Command::getCur(){
 	return b_cur;
 }
 
+void Command::delHint(Block b, size_t r, size_t c){
+	g->voidBlock(b, r, c);
+}
+
 void Command::block(string s){
 	if (s == "I"){
 		Block_I b;
