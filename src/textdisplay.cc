@@ -21,29 +21,36 @@ void TextDisplay::notify(Subject<State> &whoFrom){
 	size_t col = s.c;
 	size_t row = s.r;
   if (blocktype == BlockType::Current){
-    if (status == Fill::Solid){
+    if (status == Fill::Solid || status == Fill::Temp){
       switch(cellType){
         case Type::Single:
           theDisplay[row][col] = '*';
+          return;
         case Type::I:
           theDisplay[row][col] = 'I';
+          return;
         case Type::J:
           theDisplay[row][col] = 'J';
+          return;
         case Type::L:
           theDisplay[row][col] = 'L';
+          return;
         case Type::S:
           theDisplay[row][col] = 'S';
+          return;
         case Type::Z:
           theDisplay[row][col] = 'Z';
+          return;
         case Type::O:
           theDisplay[row][col] = 'O';
+          return;
         case Type::T:
           theDisplay[row][col] = 'T';
+          return;
         default:
           theDisplay[row][col] = 'M';
+          return;
       }
-    } else if (status == Fill::Temp){
-      theDisplay[row][col] = 'N';
     } else if (status == Fill::Empty){
       theDisplay[row][col] = ' ';
     } else if (status == Fill::Hint){
