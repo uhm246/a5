@@ -32,9 +32,11 @@ void Grid::clearLines(){
   cout << "clearLines()" << endl;
   vector<size_t> v = checkLines();
   cout << "checkLines() done" << endl;
+  int i = 0;
   for (auto a : v){
     cout << "line to be cleared : " << a << endl;
-    clearLine(a);
+    clearLine(a-i);
+    i++;
   }
   score.increaseScore((v.size() + getLevel().num()) *
                       (v.size() + getLevel().num()));
