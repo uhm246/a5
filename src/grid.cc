@@ -203,6 +203,21 @@ void Grid::setBlock(Block b, size_t r, size_t c){
   }
   clearLines();
   addBlock(&b);
+  if (this->getLevel().num() == 4){
+    this->getLevel().increaselvl4count();
+  }
+  if (this->getLevel().getlvl4count() == 5){
+    this->getLevel().resetlvl4count();
+    Block_Single sb;
+    sb.setLevel(4);
+    size_t c2 = 5;
+    size_t r2 = 15;
+    while (this->verifyMove(sb, Move::Down, r2, c2)){
+      r2 -= 1;
+    }
+    setBlock(sb, r2, c2);
+    drawBlock(sb, r2, c2);
+  }
 }
 
 int Grid::checkHoles(size_t r, size_t c, size_t width, size_t depth){
