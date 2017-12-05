@@ -11,6 +11,7 @@
 //#include "graphicsdisplay.h"
 #include "command.h"
 #include "state.h"
+#include "score.h"
 
 using namespace std;
 
@@ -43,7 +44,7 @@ int main(int argc, char *argv[]){
 	cin.exceptions(ios::eofbit|ios::failbit);
 	string cmd;
 	Grid game;
-	TextDisplay* td = new TextDisplay(0,0,0);
+	TextDisplay* td = new TextDisplay(&game.getScoreObject(), &game.getLevel());
 	game.setTextDisplay(td);
 	game.init(); // initialize game
 	int argind = 1;
