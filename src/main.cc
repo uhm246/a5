@@ -205,7 +205,7 @@ int main(int argc, char *argv[]){
           command.setType("leveldown");
         }
       }
-    
+      cout << rep << endl;
       while (rep > 0){
         cout << "EXEC" << endl;
         command.execute();
