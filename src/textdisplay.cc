@@ -20,31 +20,33 @@ void TextDisplay::notify(Subject<State> &whoFrom){
 	Status status = s.status;
 	size_t col = s.c;
 	size_t row = s.r;
-  if (s.status == Status::Solid){
-    switch(cellType){
-      case Type::Single:
-       theDisplay[row][col] = '*';
-      case Type::I:
-        theDisplay[row][col] = 'I';
-      case Type::J:
-        theDisplay[row][col] = 'J';
-      case Type::L:
-        theDisplay[row][col] = 'L';
-      case Type::S:
-        theDisplay[row][col] = 'S';
-      case Type::Z:
-        theDisplay[row][col] = 'Z';
-      case Type::O:
-        theDisplay[row][col] = 'O';
-      case Type::T:
-        theDisplay[row][col] = 'T';
-      default:
-        theDisplay[row][col] = '?';
+  if (true){ // s.blocktype == BlockType::Current){
+    if (s.status == Status::Solid){
+      switch(cellType){
+        case Type::Single:
+          theDisplay[row][col] = '*';
+        case Type::I:
+          theDisplay[row][col] = 'I';
+        case Type::J:
+          theDisplay[row][col] = 'J';
+        case Type::L:
+          theDisplay[row][col] = 'L';
+        case Type::S:
+          theDisplay[row][col] = 'S';
+        case Type::Z:
+          theDisplay[row][col] = 'Z';
+        case Type::O:
+          theDisplay[row][col] = 'O';
+        case Type::T:
+          theDisplay[row][col] = 'T';
+        default:
+          theDisplay[row][col] = '?';
+      }
+    } else if (s.status == Status::Temp){
+      theDisplay[row][col] = 'N';
+    } else if (s.status == Status::Empty){
+      theDisplay[row][col] = ' ';
     }
-  } else if (s.status == Status::Temp){
-    theDisplay[row][col] = 'N';
-  } else if (s.status == Status::Empty){
-    theDisplay[row][col] = ' ';
   }
 }
 
