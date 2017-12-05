@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -std=c++14 -Wall  -MMD -Werror=vla
 MAKEFILE_NAME = ${firstword ${MAKEFILE_LIST}}
 
-OBJECTS = block.o cell.o command.o grid.o level.o main.o next.o textdisplay.o
+OBJECTS = block.o cell.o command.o grid.o level.o main.o next.o textdisplay2.o
 DEPENDS=${OBJECTS:.o=.d}
 	EXEC = quadris
 
