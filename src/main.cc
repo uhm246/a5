@@ -66,8 +66,8 @@ int main(int argc, char *argv[]){
     			seq.push_back(b);
     		}
 
-	  	} else if (argv1 == "-startlevel"){
-	  		string l = argv[argind + 1];
+  	} else if (argv1 == "-startlevel"){
+	  	string l = argv[argind + 1];
 			int lev = stoi(l);
 			game.getLevel().setLevel(lev);
 			argind += 2;
