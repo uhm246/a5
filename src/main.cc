@@ -125,6 +125,8 @@ int main(int argc, char *argv[]){
 
       // Increment rep as needed
       while (isdigit(cmd[i])){
+        cout << rep << endl;
+        cout << i << "digits" << endl;
         rep = rep * 10 + cmd[i];
         i += 1;
       }
