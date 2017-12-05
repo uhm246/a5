@@ -45,9 +45,9 @@ int main(int argc, char *argv[]){
 	string cmd;
 	Grid game;
 	TextDisplay* td = new TextDisplay(&game.getScoreObject(), &game.getLevel());
-	GraphicsDisplay* gd = new GraphicsDisplay();
+	//GraphicsDisplay* gd = new GraphicsDisplay();
 	game.setTextDisplay(td);
-	game.setGraphicsDisplay(gd);
+	//game.setGraphicsDisplay(gd);
 	game.init(); // initialize game
 	int argind = 1;
 	while (argind < argc - 1){
@@ -222,6 +222,7 @@ int main(int argc, char *argv[]){
         }
         command.execute();
         if (hinted){
+          hinted = false;
           hint = true;
         }
         rep -= 1;
@@ -234,5 +235,8 @@ int main(int argc, char *argv[]){
       
     }
   }
-  catch (ios::failure &) {}  // Any I/O failure quits
+  catch (ios::failure &) {
+  }  // Any I/O failure quits
+  delete td;
+  //delete gd;
 }
