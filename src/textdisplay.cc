@@ -25,31 +25,31 @@ void TextDisplay::notify(Subject<State> &whoFrom){
       switch(cellType){
         case Type::Single:
           theDisplay[row][col] = '*';
-          return;
+          break;
         case Type::I:
           theDisplay[row][col] = 'I';
-          return;
+          break;
         case Type::J:
           theDisplay[row][col] = 'J';
-          return;
+          break;
         case Type::L:
           theDisplay[row][col] = 'L';
-          return;
+          break;
         case Type::S:
           theDisplay[row][col] = 'S';
-          return;
+          break;
         case Type::Z:
           theDisplay[row][col] = 'Z';
-          return;
+          break;
         case Type::O:
           theDisplay[row][col] = 'O';
-          return;
+          break;
         case Type::T:
           theDisplay[row][col] = 'T';
-          return;
+          break;
         default:
           theDisplay[row][col] = 'M';
-          return;
+          break;
       }
     } else if (status == Fill::Empty){
       theDisplay[row][col] = ' ';
